@@ -302,6 +302,15 @@ function showLevelUpNotification() {
     `;
     document.body.appendChild(notification);
     
+    // Add screen shake effect
+    document.body.classList.add('screen-shake');
+    setTimeout(() => {
+        document.body.classList.remove('screen-shake');
+    }, 500);
+    
+    // Create particle effects
+    createParticles('🎉', 15);
+    
     // Remove notification after animation
     setTimeout(() => {
         notification.remove();
@@ -313,6 +322,51 @@ function getLevelBonus() {
     // Calculate power generation multiplier based on level
     // Level 1 = 1.00x (no bonus), Level 2 = 1.01x (+1%), Level 10 = 1.09x (+9%), etc.
     return 1 + (gameState.level - 1) * LEVEL_BONUS_PERCENT;
+}
+
+// Create particle effects
+function createParticles(emoji, count) {
+    for (let i = 0; i < count; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.textContent = emoji;
+        
+        // Random position near center of screen
+        const startX = window.innerWidth / 2 + (Math.random() - 0.5) * 400;
+        const startY = window.innerHeight / 2 + (Math.random() - 0.5) * 400;
+        particle.style.left = startX + 'px';
+        particle.style.top = startY + 'px';
+        
+        // Random trajectory
+        const tx = (Math.random() - 0.5) * 300;
+        const ty = -150 - Math.random() * 150;
+        particle.style.setProperty('--tx', tx + 'px');
+        particle.style.setProperty('--ty', ty + 'px');
+        
+        document.body.appendChild(particle);
+        
+        // Remove particle after animation
+        setTimeout(() => {
+            particle.remove();
+        }, 1500);
+    }
+}
+
+// Show floating number effect
+function showFloatingNumber(text, x, y, type) {
+    const floatingNum = document.createElement('div');
+    floatingNum.className = `floating-number ${type}`;
+    floatingNum.textContent = text;
+    
+    floatingNum.style.left = x + 'px';
+    floatingNum.style.top = y + 'px';
+    
+    document.body.appendChild(floatingNum);
+    
+    // Remove after animation
+    setTimeout(() => {
+        floatingNum.remove();
+    }, 2000);
 }
 
 // Update display
@@ -362,6 +416,27 @@ function completeMission(mission) {
         gameState.hackingPower -= mission.powerCost;
         gameState.xp += mission.xpReward;
         gameState.credits += mission.creditReward;
+        
+        // Get the mission button for visual effects
+        const missionButton = document.querySelector(`[data-mission-id="${mission.id}"]`);
+        
+        // Show floating numbers for XP and Credits
+        if (missionButton) {
+            const rect = missionButton.getBoundingClientRect();
+            showFloatingNumber(`+${formatNumber(mission.xpReward)} XP`, rect.left + rect.width / 2, rect.top, 'xp');
+            setTimeout(() => {
+                showFloatingNumber(`+${formatNumber(mission.creditReward)} Credits`, rect.left + rect.width / 2, rect.top, 'credits');
+            }, 200);
+            
+            // Add flash effect to mission button
+            missionButton.classList.add('mission-complete-flash');
+            setTimeout(() => {
+                missionButton.classList.remove('mission-complete-flash');
+            }, 500);
+        }
+        
+        // Create particle effects
+        createParticles('✨', 10);
         
         // Check for level up
         checkLevelUp();
