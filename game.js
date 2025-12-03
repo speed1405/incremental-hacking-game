@@ -542,6 +542,18 @@ elements.resetBtn.addEventListener('click', resetGame);
 
 // Tab switching function
 function switchTab(tabName) {
+    // Tab configuration mapping
+    const tabConfig = {
+        shop: { content: 'shopContent', button: 'shopTab' },
+        missions: { content: 'missionsContent', button: 'missionsTab' }
+    };
+    
+    // Validate tab name
+    if (!tabConfig[tabName]) {
+        console.error(`Invalid tab name: ${tabName}`);
+        return;
+    }
+    
     // Hide all tab contents
     document.querySelectorAll('.tab-content').forEach(content => {
         content.classList.remove('active');
@@ -553,13 +565,9 @@ function switchTab(tabName) {
     });
     
     // Show selected tab content and activate button
-    if (tabName === 'shop') {
-        document.getElementById('shopContent').classList.add('active');
-        document.getElementById('shopTab').classList.add('active');
-    } else if (tabName === 'missions') {
-        document.getElementById('missionsContent').classList.add('active');
-        document.getElementById('missionsTab').classList.add('active');
-    }
+    const tab = tabConfig[tabName];
+    document.getElementById(tab.content).classList.add('active');
+    document.getElementById(tab.button).classList.add('active');
 }
 
 // Initialize game
