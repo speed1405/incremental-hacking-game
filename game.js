@@ -1,3 +1,7 @@
+// Game Configuration
+const LEVEL_BONUS_PERCENT = 0.01; // 1% power bonus per level
+const NOTIFICATION_DURATION = 3000; // Duration in milliseconds
+
 // Game State
 const gameState = {
     hackingPower: 0,
@@ -149,7 +153,7 @@ function formatNumber(num) {
 
 // Calculate XP required for next level
 function getXPForLevel(level) {
-    // Formula: 100 * level^1.5 (exponential growth)
+    // Formula: 100 * level^1.5 (polynomial growth)
     return Math.floor(100 * Math.pow(level, 1.5));
 }
 
@@ -201,13 +205,13 @@ function showLevelUpNotification() {
     // Remove notification after animation
     setTimeout(() => {
         notification.remove();
-    }, 3000);
+    }, NOTIFICATION_DURATION);
 }
 
 // Get level bonus multiplier
 function getLevelBonus() {
-    // Each level gives 1% bonus to power generation
-    return 1 + (gameState.level - 1) * 0.01;
+    // Each level gives a percentage bonus to power generation
+    return 1 + (gameState.level - 1) * LEVEL_BONUS_PERCENT;
 }
 
 // Calculate upgrade cost
