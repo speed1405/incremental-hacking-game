@@ -228,7 +228,10 @@ const elements = {
     tutorialOverlay: document.getElementById('tutorialOverlay'),
     closeTutorial: document.getElementById('closeTutorial'),
     dontShowAgain: document.getElementById('dontShowAgain'),
-    modalClose: document.querySelector('.modal-close')
+    modalClose: document.querySelector('.modal-close'),
+    themeBtn: document.getElementById('themeBtn'),
+    themeModal: document.getElementById('themeModal'),
+    themeModalClose: document.getElementById('themeModalClose')
 };
 
 // Format numbers for display
@@ -617,6 +620,31 @@ function closeTutorial() {
     }
 }
 
+// Show theme modal
+function showThemeModal() {
+    elements.themeModal.classList.add('show');
+}
+
+// Hide theme modal
+function hideThemeModal() {
+    elements.themeModal.classList.remove('show');
+}
+
+// Change theme
+function changeTheme(themeName) {
+    document.body.setAttribute('data-theme', themeName);
+    localStorage.setItem('gameTheme', themeName);
+    hideThemeModal();
+}
+
+// Load saved theme
+function loadTheme() {
+    const savedTheme = localStorage.getItem('gameTheme');
+    if (savedTheme) {
+        document.body.setAttribute('data-theme', savedTheme);
+    }
+}
+
 // Event Listeners
 elements.hackBtn.addEventListener('click', hack);
 elements.saveBtn.addEventListener('click', saveGame);
@@ -641,6 +669,25 @@ elements.tutorialOverlay.addEventListener('click', (e) => {
     if (e.target === elements.tutorialOverlay) {
         closeTutorial();
     }
+});
+
+// Theme modal event listeners
+elements.themeBtn.addEventListener('click', showThemeModal);
+elements.themeModalClose.addEventListener('click', hideThemeModal);
+
+// Close theme modal when clicking outside
+elements.themeModal.addEventListener('click', (e) => {
+    if (e.target === elements.themeModal) {
+        hideThemeModal();
+    }
+});
+
+// Theme option event listeners
+document.querySelectorAll('.theme-option').forEach(button => {
+    button.addEventListener('click', () => {
+        const theme = button.getAttribute('data-theme');
+        changeTheme(theme);
+    });
 });
 
 // Tab switching function
@@ -676,6 +723,7 @@ function switchTab(tabName) {
 // Initialize game
 function init() {
     loadGame();
+    loadTheme(); // Load saved theme
     updateDisplay();
     renderShop();
     renderMissions();

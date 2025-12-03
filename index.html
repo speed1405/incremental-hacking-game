@@ -11,7 +11,10 @@
         <header>
             <h1>🔓 Incremental Hacking Game</h1>
             <p class="subtitle">Build your hacking empire</p>
-            <button id="helpBtn" class="help-btn" aria-label="Open help modal">❓ Help</button>
+            <div class="header-buttons">
+                <button id="themeBtn" class="theme-btn" aria-label="Change theme">🎨 Theme</button>
+                <button id="helpBtn" class="help-btn" aria-label="Open help modal">❓ Help</button>
+            </div>
         </header>
 
         <div class="game-area">
@@ -186,6 +189,53 @@
             <label class="tutorial-checkbox" for="dontShowAgain">
                 <input type="checkbox" id="dontShowAgain"> Don't show this again
             </label>
+        </div>
+    </div>
+
+    <!-- Theme Selector Modal -->
+    <div id="themeModal" class="modal">
+        <div class="modal-content theme-modal-content">
+            <span class="modal-close" id="themeModalClose">&times;</span>
+            <h2>🎨 Choose Your Theme</h2>
+            <p class="theme-description">Select a color scheme for your hacking experience</p>
+            
+            <div class="theme-grid">
+                <button class="theme-option" data-theme="matrix" aria-label="Matrix Green theme">
+                    <div class="theme-preview matrix-preview"></div>
+                    <span class="theme-name">Matrix Green</span>
+                    <span class="theme-desc">Classic hacker aesthetic</span>
+                </button>
+                
+                <button class="theme-option" data-theme="cyberpunk" aria-label="Cyberpunk Blue theme">
+                    <div class="theme-preview cyberpunk-preview"></div>
+                    <span class="theme-name">Cyberpunk Blue</span>
+                    <span class="theme-desc">Neon-lit digital world</span>
+                </button>
+                
+                <button class="theme-option" data-theme="hacker-dark" aria-label="Hacker Dark theme">
+                    <div class="theme-preview hacker-dark-preview"></div>
+                    <span class="theme-name">Hacker Dark</span>
+                    <span class="theme-desc">Stealth mode activated</span>
+                </button>
+                
+                <button class="theme-option" data-theme="terminal" aria-label="Terminal Amber theme">
+                    <div class="theme-preview terminal-preview"></div>
+                    <span class="theme-name">Terminal Amber</span>
+                    <span class="theme-desc">Retro terminal vibes</span>
+                </button>
+                
+                <button class="theme-option" data-theme="neon-purple" aria-label="Neon Purple theme">
+                    <div class="theme-preview neon-purple-preview"></div>
+                    <span class="theme-name">Neon Purple</span>
+                    <span class="theme-desc">Synthwave dreams</span>
+                </button>
+                
+                <button class="theme-option" data-theme="red-alert" aria-label="Red Alert theme">
+                    <div class="theme-preview red-alert-preview"></div>
+                    <span class="theme-name">Red Alert</span>
+                    <span class="theme-desc">High security breach</span>
+                </button>
+            </div>
         </div>
     </div>
 
