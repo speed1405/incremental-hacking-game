@@ -12,6 +12,7 @@
             <h1>🔓 Incremental Hacking Game</h1>
             <p class="subtitle">Build your hacking empire</p>
             <div class="header-buttons">
+                <button id="compactModeBtn" class="theme-btn" aria-label="Toggle compact mode">📦 Compact</button>
                 <button id="themeBtn" class="theme-btn" aria-label="Change theme">🎨 Theme</button>
                 <button id="helpBtn" class="help-btn" aria-label="Open help modal">❓ Help</button>
             </div>
@@ -67,6 +68,34 @@
 
                 <!-- Shop Tab Content -->
                 <div id="shopContent" class="tab-content active">
+                    <div class="shop-controls">
+                        <input type="text" id="hardwareSearch" class="search-input" placeholder="🔍 Search hardware...">
+                        <select id="sortHardware" class="sort-select">
+                            <option value="year">Sort by Year</option>
+                            <option value="price-low">Sort by Price (Low to High)</option>
+                            <option value="price-high">Sort by Price (High to Low)</option>
+                            <option value="power-low">Sort by Power (Low to High)</option>
+                            <option value="power-high">Sort by Power (High to Low)</option>
+                            <option value="manufacturer">Sort by Manufacturer</option>
+                        </select>
+                        <select id="filterManufacturer" class="filter-select">
+                            <option value="all">All Manufacturers</option>
+                            <option value="intel">Intel</option>
+                            <option value="amd">AMD</option>
+                            <option value="nvidia">NVIDIA</option>
+                            <option value="ati">AMD/ATI</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <select id="filterType" class="filter-select">
+                            <option value="all">All Types</option>
+                            <option value="cpu">CPUs</option>
+                            <option value="gpu">GPUs</option>
+                            <option value="motherboard">Motherboards</option>
+                        </select>
+                    </div>
+                    <div id="powerCalculator" class="power-calculator">
+                        💡 Power Preview: <span id="powerPreview">0</span> power/sec with level bonus
+                    </div>
                     <div id="shopList" class="shop-list">
                         <!-- Hardware items will be generated dynamically -->
                     </div>
@@ -74,6 +103,11 @@
 
                 <!-- Missions Tab Content -->
                 <div id="missionsContent" class="tab-content">
+                    <div class="mission-queue-section">
+                        <h3>🔄 Mission Queue (<span id="queueCount">0</span>)</h3>
+                        <div id="missionQueue" class="mission-queue"></div>
+                        <button id="clearQueue" class="utility-btn" style="margin: 10px 0;">Clear Queue</button>
+                    </div>
                     <div id="missionsList" class="missions-list">
                         <!-- Missions will be generated dynamically -->
                     </div>
@@ -82,6 +116,7 @@
         </div>
 
         <footer>
+            <div id="autoSaveIndicator" class="auto-save-indicator">💾 Auto-saved</div>
             <button id="saveBtn" class="utility-btn">💾 Save Game</button>
             <button id="resetBtn" class="utility-btn danger">🔄 Reset Game</button>
         </footer>
@@ -142,7 +177,25 @@
                 <p><strong>Save Game:</strong> Manually save progress (also auto-saves)</p>
                 <p><strong>Reset Game:</strong> Start over from scratch (with confirmation)</p>
             </div>
+            
+            <div class="help-section">
+                <h3>⌨️ Keyboard Shortcuts</h3>
+                <ul>
+                    <li><strong>H</strong> - Hack (+1 Power)</li>
+                    <li><strong>S</strong> - Switch to Shop tab</li>
+                    <li><strong>M</strong> - Switch to Missions tab</li>
+                    <li><strong>T</strong> - Open Theme selector</li>
+                    <li><strong>?</strong> - Show this Help</li>
+                    <li><strong>ESC</strong> - Close modals</li>
+                </ul>
+            </div>
         </div>
+    </div>
+
+    <!-- Tip Display -->
+    <div id="tipDisplay" class="tip-display">
+        <span id="tipIcon">💡</span>
+        <span id="tipText"></span>
     </div>
 
     <!-- Tutorial Overlay for First-Time Players -->
