@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incremental Hacking Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔓 Incremental Hacking Game</h1>
+            <p class="subtitle">Build your hacking empire</p>
+        </header>
+
+        <div class="game-area">
+            <!-- Resources Section -->
+            <section class="resources">
+                <div class="resource-item">
+                    <span class="resource-label">💻 Hacking Power:</span>
+                    <span id="hackingPower" class="resource-value">0</span>
+                </div>
+                <div class="resource-item">
+                    <span class="resource-label">⭐ XP:</span>
+                    <span id="xp" class="resource-value">0</span>
+                </div>
+                <div class="resource-item">
+                    <span class="resource-label">💰 Credits:</span>
+                    <span id="credits" class="resource-value">0</span>
+                </div>
+                <div class="resource-item">
+                    <span class="resource-label">🚀 Power/sec:</span>
+                    <span id="powerPerSec" class="resource-value">0</span>
+                </div>
+            </section>
+
+            <!-- Main Actions Section -->
+            <section class="actions">
+                <h2>Actions</h2>
+                <button id="hackBtn" class="action-btn primary">
+                    🔨 Hack (+1 Power)
+                </button>
+            </section>
+
+            <!-- Upgrades Section -->
+            <section class="upgrades">
+                <h2>Upgrades</h2>
+                <div id="upgradesList" class="upgrades-list">
+                    <!-- Upgrades will be generated dynamically -->
+                </div>
+            </section>
+
+            <!-- Missions Section -->
+            <section class="missions">
+                <h2>Missions</h2>
+                <div id="missionsList" class="missions-list">
+                    <!-- Missions will be generated dynamically -->
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <button id="saveBtn" class="utility-btn">💾 Save Game</button>
+            <button id="resetBtn" class="utility-btn danger">🔄 Reset Game</button>
+        </footer>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
