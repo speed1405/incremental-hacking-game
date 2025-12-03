@@ -1127,3 +1127,109 @@ footer {
         opacity: 1;
     }
 }
+
+/* Particle Effects */
+.particle {
+    position: fixed;
+    pointer-events: none;
+    font-size: 2em;
+    z-index: 9998;
+    animation: particleFloat 1.5s ease-out forwards;
+}
+
+@keyframes particleFloat {
+    0% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--tx, 0), var(--ty, -200px)) scale(0.5) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Floating Numbers */
+.floating-number {
+    position: fixed;
+    pointer-events: none;
+    font-size: 1.5em;
+    font-weight: bold;
+    z-index: 9999;
+    text-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
+    animation: floatUp 2s ease-out forwards;
+}
+
+.floating-number.xp {
+    color: #ffaa00;
+}
+
+.floating-number.credits {
+    color: #00ff00;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(-50px) scale(1.2);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-150px) scale(0.8);
+        opacity: 0;
+    }
+}
+
+/* Glowing Mission Effect */
+.mission-btn:not(:disabled):not(.locked) {
+    animation: missionGlow 2s ease-in-out infinite;
+}
+
+@keyframes missionGlow {
+    0%, 100% {
+        box-shadow: 0 0 5px var(--primary-color);
+    }
+    50% {
+        box-shadow: 0 0 20px var(--primary-color), 0 0 30px var(--primary-color);
+    }
+}
+
+/* Screen Shake */
+@keyframes screenShake {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: translate(-10px, 0);
+    }
+    20%, 40%, 60%, 80% {
+        transform: translate(10px, 0);
+    }
+}
+
+.screen-shake {
+    animation: screenShake 0.5s ease-in-out;
+}
+
+/* Mission Complete Effect */
+@keyframes missionComplete {
+    0% {
+        transform: scale(1);
+        background: rgba(0, 200, 0, 0.2);
+    }
+    50% {
+        transform: scale(1.05);
+        background: rgba(0, 255, 0, 0.4);
+        box-shadow: 0 0 30px var(--primary-color);
+    }
+    100% {
+        transform: scale(1);
+        background: rgba(0, 200, 0, 0.2);
+    }
+}
+
+.mission-complete-flash {
+    animation: missionComplete 0.5s ease-out;
+}
