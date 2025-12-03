@@ -13,18 +13,23 @@ A text-based incremental game where you build your hacking empire!
 
 ## How to Play
 
-### Requirements
-- Python 3.6 or higher
+### Web Browser Version (Recommended)
 
-### Running the Game
+Simply open `index.html` in your web browser. No installation required!
 
-#### Option 1: Python (Recommended)
+1. Double-click `index.html` to open it in your default browser
+2. Or drag and drop `index.html` into your browser window
+3. Start hacking!
+
+### Python CLI Version (Alternative)
+
+For a terminal-based experience:
+
 ```bash
 python3 game.py
 ```
 
-#### Option 2: Web Browser
-Open `index.html` in your web browser for a web-based version.
+**Requirements**: Python 3.6 or higher
 
 ## Game Mechanics
 
@@ -48,7 +53,15 @@ Open `index.html` in your web browser for a web-based version.
 5. 🏢 **Hack Corporation** - Corporate networks (2,500 Power → 800 XP, 400 Credits)
 6. 🏛️ **Breach Government** - Classified databases (5,000 Power → 2,000 XP, 1,000 Credits)
 
-## Controls (Python Version)
+## Controls (Web Version)
+
+- **Click "🔨 Hack"** - Manually generate +1 Power
+- **Click upgrade buttons** - Purchase upgrades with your hacking power
+- **Click mission buttons** - Complete missions to earn XP and Credits
+- **💾 Save Game** - Manually save your progress
+- **🔄 Reset Game** - Reset all progress (with confirmation)
+
+## Controls (Python CLI Version)
 
 - `h` - Hack (+1 Power)
 - `u` - View/Buy Upgrades
@@ -63,13 +76,30 @@ Open `index.html` in your web browser for a web-based version.
 2. Buy your first Auto-Hacker as soon as possible for passive income
 3. Balance between buying upgrades and completing missions
 4. Higher-tier upgrades become more expensive but generate much more power
-5. Your game auto-saves when you quit, so you won't lose progress!
+5. The game auto-saves in your browser's localStorage (web version) or game_save.json (Python version)
+6. Passive income continues to accumulate even when the page is running in the background!
 
 ## Technical Details
 
-- Game state is saved to `game_save.json`
-- Passive income is calculated based on time elapsed
+### Web Version
+- Pure HTML, CSS, and JavaScript - no dependencies required
+- Runs entirely in the browser
+- Game state saved to browser's localStorage
+- Passive income calculated every 100ms for smooth gameplay
+- Responsive design works on desktop and mobile
+
+### Python Version  
+- Game state saved to `game_save.json`
+- Passive income calculated based on time elapsed
 - Upgrade costs increase exponentially with each purchase
 - Terminal colors enhance the hacking aesthetic
+
+## Screenshots
+
+### Initial Game State
+![Initial Game State](https://github.com/user-attachments/assets/78753188-001c-470d-a699-bf6c77c71f66)
+
+### Game with Progress
+![Game with Progress](https://github.com/user-attachments/assets/68dcf5c0-2e53-4a17-8f32-6d58cdb57bc4)
 
 Enjoy building your hacking empire! 🚀

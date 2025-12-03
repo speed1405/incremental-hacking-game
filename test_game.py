@@ -8,8 +8,8 @@ import json
 import os
 import sys
 
-# Add the game directory to path
-sys.path.insert(0, '/home/runner/work/incremental-hacking-game/incremental-hacking-game')
+# Add the game directory to path (use relative path)
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from game import Game, GameState, UPGRADES, MISSIONS
 

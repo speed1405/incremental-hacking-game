@@ -91,7 +91,7 @@ UPGRADES = [
     Upgrade('auto_hacker', '🤖 Auto-Hacker', 'Generates 1 hacking power per second', 10, 1.15, 1),
     Upgrade('botnet', '🌐 Botnet', 'Network of compromised computers (+5 power/sec)', 100, 1.2, 5),
     Upgrade('ai_assistant', '🧠 AI Assistant', 'Advanced AI helps with hacking (+20 power/sec)', 500, 1.25, 20),
-    Upgrade('quantum_core', '⚛️  Quantum Core', 'Quantum computing power (+100 power/sec)', 2500, 1.3, 100),
+    Upgrade('quantum_core', '⚛️ Quantum Core', 'Quantum computing power (+100 power/sec)', 2500, 1.3, 100),
     Upgrade('neural_network', '🔮 Neural Network', 'Self-learning hacking system (+500 power/sec)', 10000, 1.35, 500),
 ]
 
@@ -100,9 +100,9 @@ MISSIONS = [
     Mission('hack_website', '🌐 Hack Small Website', 'Compromise a basic website security', 50, 10, 5),
     Mission('steal_data', '💾 Steal Database', 'Extract sensitive data from a database', 200, 50, 25),
     Mission('break_encryption', '🔐 Break Encryption', 'Crack advanced encryption algorithms', 500, 150, 75),
-    Mission('infiltrate_server', '🖥️  Infiltrate Server', 'Gain root access to a secured server', 1000, 300, 150),
+    Mission('infiltrate_server', '🖥️ Infiltrate Server', 'Gain root access to a secured server', 1000, 300, 150),
     Mission('hack_corporation', '🏢 Hack Corporation', 'Penetrate corporate network defenses', 2500, 800, 400),
-    Mission('breach_government', '🏛️  Breach Government', 'Access classified government databases', 5000, 2000, 1000),
+    Mission('breach_government', '🏛️ Breach Government', 'Access classified government databases', 5000, 2000, 1000),
 ]
 
 class Game:
