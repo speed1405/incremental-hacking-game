@@ -353,6 +353,7 @@ function completeMission(mission) {
         
         updateDisplay();
         renderMissions();
+        renderShop(); // Credits changed, update shop affordability
     }
 }
 
@@ -425,6 +426,7 @@ function renderShop() {
             const button = document.createElement('button');
             button.className = 'shop-btn';
             button.disabled = !canAfford;
+            button.setAttribute('data-item-id', item.id);
             
             button.innerHTML = `
                 <span class="item-name">${item.name} (${item.year})</span>
@@ -454,6 +456,7 @@ function renderMissions() {
         const button = document.createElement('button');
         button.className = 'mission-btn';
         button.disabled = !canAfford;
+        button.setAttribute('data-mission-id', mission.id);
         
         button.innerHTML = `
             <span class="item-name">${mission.name}</span>
@@ -469,15 +472,34 @@ function renderMissions() {
     });
 }
 
-// Game loop - runs every second
+// Update button states without re-rendering
+function updateButtonStates() {
+    // Update shop button states
+    hardware.forEach(item => {
+        const button = document.querySelector(`[data-item-id="${item.id}"]`);
+        if (button) {
+            button.disabled = gameState.credits < item.cost;
+        }
+    });
+    
+    // Update mission button states
+    missions.forEach(mission => {
+        const button = document.querySelector(`[data-mission-id="${mission.id}"]`);
+        if (button) {
+            button.disabled = gameState.hackingPower < mission.powerCost;
+        }
+    });
+}
+
+// Game loop - runs every 100ms
 function gameLoop() {
     if (gameState.powerPerSecond > 0) {
         gameState.hackingPower += gameState.powerPerSecond / 10; // Divide by 10 for smoother increment
         updateDisplay();
     }
     
-    renderShop();
-    renderMissions();
+    // Only update button states, don't re-render
+    updateButtonStates();
 }
 
 // Save game
