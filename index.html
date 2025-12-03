@@ -11,16 +11,17 @@
         <header>
             <h1>🔓 Incremental Hacking Game</h1>
             <p class="subtitle">Build your hacking empire</p>
+            <button id="helpBtn" class="help-btn" title="Click for help">❓ Help</button>
         </header>
 
         <div class="game-area">
             <!-- Resources Section -->
             <section class="resources">
-                <div class="resource-item level-display">
+                <div class="resource-item level-display" data-tooltip="Your current level. Each level grants a +1% power bonus to all generation!">
                     <span class="resource-label">🏆 Level:</span>
                     <span id="level" class="resource-value">1</span>
                 </div>
-                <div class="resource-item xp-bar-container">
+                <div class="resource-item xp-bar-container" data-tooltip="Experience points gained from missions. Fill the bar to level up!">
                     <div class="xp-bar-wrapper">
                         <div class="xp-bar-bg">
                             <div id="levelProgress" class="xp-bar-fill"></div>
@@ -28,19 +29,19 @@
                         <span id="xpProgress" class="xp-bar-text">0 / 100 XP</span>
                     </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-tooltip="Hacking Power is your main resource. Use it to complete missions!">
                     <span class="resource-label">💻 Hacking Power:</span>
                     <span id="hackingPower" class="resource-value">0</span>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-tooltip="Total experience points earned. Complete missions to gain XP!">
                     <span class="resource-label">⭐ XP:</span>
                     <span id="xp" class="resource-value">0</span>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-tooltip="Credits are earned from missions. Spend them in the Hardware Shop!">
                     <span class="resource-label">💰 Credits:</span>
                     <span id="credits" class="resource-value">0</span>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-tooltip="Passive power generation per second from your hardware. Increases with level bonus!">
                     <span class="resource-label">🚀 Power/sec:</span>
                     <span id="powerPerSec" class="resource-value">0</span>
                 </div>
@@ -49,7 +50,7 @@
             <!-- Main Actions Section -->
             <section class="actions">
                 <h2>Actions</h2>
-                <button id="hackBtn" class="action-btn primary">
+                <button id="hackBtn" class="action-btn primary" data-tooltip="Click to manually generate +1 Hacking Power!">
                     🔨 Hack (+1 Power)
                 </button>
             </section>
@@ -57,8 +58,8 @@
             <!-- Tabbed Section for Shop and Missions -->
             <section class="tabbed-section">
                 <div class="tab-buttons">
-                    <button id="shopTab" class="tab-btn active" onclick="switchTab('shop')">🛒 Hardware Shop</button>
-                    <button id="missionsTab" class="tab-btn" onclick="switchTab('missions')">🎯 Missions</button>
+                    <button id="shopTab" class="tab-btn active" onclick="switchTab('shop')" data-tooltip="Buy hardware with Credits to generate passive power!">🛒 Hardware Shop</button>
+                    <button id="missionsTab" class="tab-btn" onclick="switchTab('missions')" data-tooltip="Complete missions by spending Power to earn XP and Credits!">🎯 Missions</button>
                 </div>
 
                 <!-- Shop Tab Content -->
@@ -81,6 +82,111 @@
             <button id="saveBtn" class="utility-btn">💾 Save Game</button>
             <button id="resetBtn" class="utility-btn danger">🔄 Reset Game</button>
         </footer>
+    </div>
+
+    <!-- Help Modal -->
+    <div id="helpModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h2>🎮 How to Play - Incremental Hacking Game</h2>
+            
+            <div class="help-section">
+                <h3>💻 Resources</h3>
+                <p><strong>Hacking Power:</strong> The main currency. Generate it by clicking "Hack" or through passive hardware generation.</p>
+                <p><strong>XP:</strong> Experience points earned from missions. Filling the XP bar levels you up!</p>
+                <p><strong>Credits:</strong> Currency earned from missions. Use them to buy hardware in the shop.</p>
+                <p><strong>Power/sec:</strong> How much hacking power you generate automatically every second.</p>
+            </div>
+            
+            <div class="help-section">
+                <h3>🏆 Leveling System</h3>
+                <p>Each level grants a <strong>+1% bonus</strong> to all power generation!</p>
+                <p>XP needed to level up increases with each level (100 × level^1.5).</p>
+                <p>Higher levels unlock more difficult missions with better rewards.</p>
+            </div>
+            
+            <div class="help-section">
+                <h3>🛒 Hardware Shop</h3>
+                <p>Purchase CPUs, GPUs, and Motherboards with Credits to increase your power/sec.</p>
+                <p>Each piece of hardware provides passive power generation.</p>
+                <p>Buy multiple units of the same hardware to stack their effects!</p>
+            </div>
+            
+            <div class="help-section">
+                <h3>🎯 Missions</h3>
+                <p>Complete missions by spending Hacking Power to earn XP and Credits.</p>
+                <p>Missions have level requirements - unlock better missions as you level up!</p>
+                <p>Higher difficulty missions cost more power but give better rewards.</p>
+            </div>
+            
+            <div class="help-section">
+                <h3>💡 Strategy Tips</h3>
+                <ul>
+                    <li>Start by manually clicking "Hack" to build initial power</li>
+                    <li>Complete early missions to gain XP and Credits</li>
+                    <li>Buy hardware from the shop to generate passive income</li>
+                    <li>Balance between saving power for missions and buying hardware</li>
+                    <li>Level up to unlock better missions and increase power generation</li>
+                    <li>Your progress auto-saves in your browser!</li>
+                </ul>
+            </div>
+            
+            <div class="help-section">
+                <h3>⌨️ Controls</h3>
+                <p><strong>Hack Button:</strong> Manually generate +1 power (click repeatedly for quick power)</p>
+                <p><strong>Hardware Buttons:</strong> Purchase hardware with Credits</p>
+                <p><strong>Mission Buttons:</strong> Complete missions by spending Hacking Power</p>
+                <p><strong>Save Game:</strong> Manually save progress (also auto-saves)</p>
+                <p><strong>Reset Game:</strong> Start over from scratch (with confirmation)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tutorial Overlay for First-Time Players -->
+    <div id="tutorialOverlay" class="tutorial-overlay">
+        <div class="tutorial-content">
+            <h2>👋 Welcome to Incremental Hacking Game!</h2>
+            <p class="tutorial-intro">Let's get you started on your hacking journey!</p>
+            
+            <div class="tutorial-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Start by Hacking</h3>
+                    <p>Click the <strong>"🔨 Hack"</strong> button below to generate your first Hacking Power!</p>
+                </div>
+            </div>
+            
+            <div class="tutorial-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Complete Your First Mission</h3>
+                    <p>Once you have 50 power, go to the <strong>"🎯 Missions"</strong> tab and complete "Hack Small Website" to earn XP and Credits!</p>
+                </div>
+            </div>
+            
+            <div class="tutorial-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Buy Hardware</h3>
+                    <p>Use your Credits in the <strong>"🛒 Hardware Shop"</strong> to buy equipment that generates power automatically!</p>
+                </div>
+            </div>
+            
+            <div class="tutorial-step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Level Up & Grow</h3>
+                    <p>Keep completing missions to gain XP and level up. Each level gives you a <strong>+1% power bonus</strong>!</p>
+                </div>
+            </div>
+            
+            <p class="tutorial-tip">💡 <strong>Tip:</strong> Hover over any element to see helpful tooltips!</p>
+            
+            <button id="closeTutorial" class="tutorial-btn">Got it! Let's Start Hacking! 🚀</button>
+            <label class="tutorial-checkbox">
+                <input type="checkbox" id="dontShowAgain"> Don't show this again
+            </label>
+        </div>
     </div>
 
     <script src="game.js"></script>

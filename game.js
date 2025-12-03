@@ -222,7 +222,12 @@ const elements = {
     shopList: document.getElementById('shopList'),
     missionsList: document.getElementById('missionsList'),
     saveBtn: document.getElementById('saveBtn'),
-    resetBtn: document.getElementById('resetBtn')
+    resetBtn: document.getElementById('resetBtn'),
+    helpBtn: document.getElementById('helpBtn'),
+    helpModal: document.getElementById('helpModal'),
+    tutorialOverlay: document.getElementById('tutorialOverlay'),
+    closeTutorial: document.getElementById('closeTutorial'),
+    dontShowAgain: document.getElementById('dontShowAgain')
 };
 
 // Format numbers for display
@@ -583,10 +588,64 @@ function resetGame() {
     }
 }
 
+// Show help modal
+function showHelp() {
+    elements.helpModal.classList.add('show');
+}
+
+// Hide help modal
+function hideHelp() {
+    elements.helpModal.classList.remove('show');
+}
+
+// Show tutorial for first-time players
+function showTutorial() {
+    const tutorialSeen = localStorage.getItem('tutorialSeen');
+    if (!tutorialSeen) {
+        elements.tutorialOverlay.classList.add('show');
+    }
+}
+
+// Close tutorial
+function closeTutorial() {
+    elements.tutorialOverlay.classList.remove('show');
+    
+    // Save preference if checkbox is checked
+    if (elements.dontShowAgain.checked) {
+        localStorage.setItem('tutorialSeen', 'true');
+    }
+}
+
 // Event Listeners
 elements.hackBtn.addEventListener('click', hack);
 elements.saveBtn.addEventListener('click', saveGame);
 elements.resetBtn.addEventListener('click', resetGame);
+
+// Help modal event listeners
+elements.helpBtn.addEventListener('click', showHelp);
+
+// Close help modal when clicking the X
+const modalClose = document.querySelector('.modal-close');
+if (modalClose) {
+    modalClose.addEventListener('click', hideHelp);
+}
+
+// Close help modal when clicking outside
+elements.helpModal.addEventListener('click', (e) => {
+    if (e.target === elements.helpModal) {
+        hideHelp();
+    }
+});
+
+// Tutorial event listeners
+elements.closeTutorial.addEventListener('click', closeTutorial);
+
+// Close tutorial when clicking outside (optional)
+elements.tutorialOverlay.addEventListener('click', (e) => {
+    if (e.target === elements.tutorialOverlay) {
+        closeTutorial();
+    }
+});
 
 // Tab switching function
 function switchTab(tabName) {
@@ -624,6 +683,9 @@ function init() {
     updateDisplay();
     renderShop();
     renderMissions();
+    
+    // Show tutorial for first-time players
+    showTutorial();
     
     // Start game loop (100ms interval for smooth updates)
     setInterval(gameLoop, 100);

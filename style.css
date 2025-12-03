@@ -26,6 +26,7 @@ header {
     background: rgba(0, 255, 0, 0.1);
     border: 2px solid #00ff00;
     border-radius: 10px;
+    position: relative;
 }
 
 header h1 {
@@ -37,6 +38,28 @@ header h1 {
 .subtitle {
     color: #00cc00;
     font-size: 1.2em;
+}
+
+/* Help Button */
+.help-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background: rgba(255, 170, 0, 0.2);
+    border: 2px solid #ffaa00;
+    color: #ffaa00;
+    font-size: 1em;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.help-btn:hover {
+    background: rgba(255, 170, 0, 0.3);
+    box-shadow: 0 0 15px rgba(255, 170, 0, 0.5);
+    transform: scale(1.05);
 }
 
 /* Game Area */
@@ -393,5 +416,281 @@ footer {
     
     header h1 {
         font-size: 1.8em;
+    }
+    
+    .help-btn {
+        position: static;
+        display: block;
+        margin: 10px auto 0;
+    }
+}
+
+/* Tooltips */
+[data-tooltip] {
+    position: relative;
+    cursor: help;
+}
+
+[data-tooltip]:hover::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 12px;
+    background: rgba(0, 0, 0, 0.95);
+    color: #00ff00;
+    border: 2px solid #00ff00;
+    border-radius: 5px;
+    font-size: 0.85em;
+    white-space: normal;
+    width: max-content;
+    max-width: 300px;
+    z-index: 1000;
+    pointer-events: none;
+    margin-bottom: 5px;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+    line-height: 1.4;
+}
+
+[data-tooltip]:hover::after {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: #00ff00;
+    margin-bottom: -7px;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+/* Help Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 9999;
+    overflow-y: auto;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal.show {
+    display: block;
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+    margin: 50px auto;
+    padding: 30px;
+    border: 3px solid #00ff00;
+    border-radius: 10px;
+    max-width: 800px;
+    color: #00ff00;
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
+    position: relative;
+}
+
+.modal-content h2 {
+    color: #00ff00;
+    text-shadow: 0 0 10px #00ff00;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 2em;
+}
+
+.modal-content h3 {
+    color: #ffaa00;
+    text-shadow: 0 0 5px #ffaa00;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 1.3em;
+}
+
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 2em;
+    color: #ff0000;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+    color: #ff6666;
+    text-shadow: 0 0 10px #ff0000;
+    transform: scale(1.2);
+}
+
+.help-section {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(0, 100, 0, 0.2);
+    border-left: 4px solid #00cc00;
+    border-radius: 5px;
+}
+
+.help-section p {
+    margin-bottom: 10px;
+    line-height: 1.6;
+    color: #aaffaa;
+}
+
+.help-section ul {
+    margin-left: 20px;
+    color: #aaffaa;
+    line-height: 1.8;
+}
+
+.help-section strong {
+    color: #00ff00;
+}
+
+/* Tutorial Overlay */
+.tutorial-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 10000;
+    overflow-y: auto;
+    animation: fadeIn 0.5s ease;
+}
+
+.tutorial-overlay.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tutorial-content {
+    background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+    padding: 40px;
+    border: 3px solid #ffaa00;
+    border-radius: 15px;
+    max-width: 700px;
+    color: #00ff00;
+    box-shadow: 0 0 50px rgba(255, 170, 0, 0.5);
+    margin: 20px;
+}
+
+.tutorial-content h2 {
+    color: #ffaa00;
+    text-shadow: 0 0 15px #ffaa00;
+    text-align: center;
+    font-size: 2.2em;
+    margin-bottom: 10px;
+}
+
+.tutorial-intro {
+    text-align: center;
+    color: #00ff00;
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+.tutorial-step {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 25px;
+    padding: 15px;
+    background: rgba(0, 100, 0, 0.2);
+    border-radius: 8px;
+    border-left: 4px solid #00ff00;
+}
+
+.step-number {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 255, 0, 0.3);
+    border: 2px solid #00ff00;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #00ff00;
+    margin-right: 15px;
+    text-shadow: 0 0 10px #00ff00;
+}
+
+.step-content h3 {
+    color: #00ff00;
+    margin-bottom: 8px;
+    font-size: 1.3em;
+}
+
+.step-content p {
+    color: #aaffaa;
+    line-height: 1.6;
+}
+
+.step-content strong {
+    color: #00ff00;
+    font-weight: bold;
+}
+
+.tutorial-tip {
+    text-align: center;
+    margin: 25px 0;
+    padding: 15px;
+    background: rgba(255, 170, 0, 0.1);
+    border: 2px solid #ffaa00;
+    border-radius: 8px;
+    color: #ffaa00;
+    font-size: 1.1em;
+}
+
+.tutorial-btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    font-size: 1.2em;
+    font-weight: bold;
+    background: rgba(0, 255, 0, 0.2);
+    border: 2px solid #00ff00;
+    color: #00ff00;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+
+.tutorial-btn:hover {
+    background: rgba(0, 255, 0, 0.3);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+    transform: scale(1.02);
+}
+
+.tutorial-checkbox {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #aaffaa;
+    cursor: pointer;
+}
+
+.tutorial-checkbox input {
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
     }
 }
