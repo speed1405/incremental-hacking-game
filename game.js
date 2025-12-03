@@ -624,11 +624,7 @@ elements.resetBtn.addEventListener('click', resetGame);
 
 // Help modal event listeners
 elements.helpBtn.addEventListener('click', showHelp);
-
-// Close help modal when clicking the X
-if (elements.modalClose) {
-    elements.modalClose.addEventListener('click', hideHelp);
-}
+elements.modalClose.addEventListener('click', hideHelp);
 
 // Close help modal when clicking outside
 elements.helpModal.addEventListener('click', (e) => {
