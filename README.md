@@ -47,12 +47,12 @@ Simply open `index.html` in your web browser. No installation required!
 5. 🔮 **Neural Network** - Self-learning system, +500 power/sec (Cost: 10,000)
 
 ### Missions
-1. 🌐 **Hack Small Website** - Basic website compromise (50 Power → 10 XP, 5 Credits)
-2. 💾 **Steal Database** - Extract sensitive data (200 Power → 50 XP, 25 Credits)
-3. 🔐 **Break Encryption** - Crack encryption (500 Power → 150 XP, 75 Credits)
-4. 🖥️ **Infiltrate Server** - Root access (1,000 Power → 300 XP, 150 Credits)
-5. 🏢 **Hack Corporation** - Corporate networks (2,500 Power → 800 XP, 400 Credits)
-6. 🏛️ **Breach Government** - Classified databases (5,000 Power → 2,000 XP, 1,000 Credits)
+1. 🌐 **Hack Small Website** - Basic website compromise (50 Power → 10 XP, 5 Credits) - **Level 1+**
+2. 💾 **Steal Database** - Extract sensitive data (200 Power → 50 XP, 25 Credits) - **Level 3+**
+3. 🔐 **Break Encryption** - Crack encryption (500 Power → 150 XP, 75 Credits) - **Level 5+**
+4. 🖥️ **Infiltrate Server** - Root access (1,000 Power → 300 XP, 150 Credits) - **Level 8+**
+5. 🏢 **Hack Corporation** - Corporate networks (2,500 Power → 800 XP, 400 Credits) - **Level 12+**
+6. 🏛️ **Breach Government** - Classified databases (5,000 Power → 2,000 XP, 1,000 Credits) - **Level 16+**
 
 ## Controls
 
@@ -67,11 +67,12 @@ Simply open `index.html` in your web browser. No installation required!
 1. Start by manually hacking to build up initial power
 2. Buy your first Auto-Hacker as soon as possible for passive income
 3. Complete missions to gain XP and level up for permanent power bonuses
-4. Balance between buying upgrades and completing missions
-5. Higher-tier upgrades become more expensive but generate much more power
-6. Each level gives you a 1% power bonus - the more you level, the stronger you become!
-7. The game auto-saves in your browser's localStorage
-8. Passive income continues to accumulate even when the page is running in the background!
+4. **Missions have level requirements** - higher-tier missions unlock as you level up
+5. Balance between buying upgrades and completing missions
+6. Higher-tier upgrades become more expensive but generate much more power
+7. Each level gives you a 1% power bonus - the more you level, the stronger you become!
+8. The game auto-saves in your browser's localStorage
+9. Passive income continues to accumulate even when the page is running in the background!
 
 ## Technical Details
 

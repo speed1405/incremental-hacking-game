@@ -149,6 +149,7 @@ const missions = [
         powerCost: 50,
         xpReward: 10,
         creditReward: 5,
+        levelRequired: 1,
         cooldown: 0
     },
     {
@@ -158,6 +159,7 @@ const missions = [
         powerCost: 200,
         xpReward: 50,
         creditReward: 25,
+        levelRequired: 3,
         cooldown: 0
     },
     {
@@ -167,6 +169,7 @@ const missions = [
         powerCost: 500,
         xpReward: 150,
         creditReward: 75,
+        levelRequired: 5,
         cooldown: 0
     },
     {
@@ -176,6 +179,7 @@ const missions = [
         powerCost: 1000,
         xpReward: 300,
         creditReward: 150,
+        levelRequired: 8,
         cooldown: 0
     },
     {
@@ -185,6 +189,7 @@ const missions = [
         powerCost: 2500,
         xpReward: 800,
         creditReward: 400,
+        levelRequired: 12,
         cooldown: 0
     },
     {
@@ -194,6 +199,7 @@ const missions = [
         powerCost: 5000,
         xpReward: 2000,
         creditReward: 1000,
+        levelRequired: 16,
         cooldown: 0
     }
 ];
@@ -343,7 +349,7 @@ function buyHardware(item) {
 
 // Complete mission
 function completeMission(mission) {
-    if (gameState.hackingPower >= mission.powerCost) {
+    if (gameState.hackingPower >= mission.powerCost && gameState.level >= mission.levelRequired) {
         gameState.hackingPower -= mission.powerCost;
         gameState.xp += mission.xpReward;
         gameState.credits += mission.creditReward;
@@ -449,18 +455,29 @@ function renderMissions() {
     
     missions.forEach(mission => {
         const canAfford = gameState.hackingPower >= mission.powerCost;
+        const hasLevel = gameState.level >= mission.levelRequired;
+        const canComplete = canAfford && hasLevel;
         
         const missionDiv = document.createElement('div');
         missionDiv.className = 'mission-item';
         
         const button = document.createElement('button');
         button.className = 'mission-btn';
-        button.disabled = !canAfford;
+        if (!hasLevel) {
+            button.classList.add('locked');
+        }
+        button.disabled = !canComplete;
         button.setAttribute('data-mission-id', mission.id);
+        
+        // Build button content with level requirement
+        const levelRequirement = !hasLevel 
+            ? `<span class="level-required">🔒 Requires Level ${mission.levelRequired}</span>` 
+            : '';
         
         button.innerHTML = `
             <span class="item-name">${mission.name}</span>
             <span class="item-description">${mission.description}</span>
+            ${levelRequirement}
             <span class="item-cost">Cost: ${formatNumber(mission.powerCost)} Power</span>
             <span class="item-reward"> | Reward: ${formatNumber(mission.xpReward)} XP, ${formatNumber(mission.creditReward)} Credits</span>
         `;
@@ -486,7 +503,16 @@ function updateButtonStates() {
     missions.forEach(mission => {
         const button = document.querySelector(`[data-mission-id="${mission.id}"]`);
         if (button) {
-            button.disabled = gameState.hackingPower < mission.powerCost;
+            const canAfford = gameState.hackingPower >= mission.powerCost;
+            const hasLevel = gameState.level >= mission.levelRequired;
+            button.disabled = !(canAfford && hasLevel);
+            
+            // Update locked class based on level requirement
+            if (hasLevel) {
+                button.classList.remove('locked');
+            } else {
+                button.classList.add('locked');
+            }
         }
     });
 }
