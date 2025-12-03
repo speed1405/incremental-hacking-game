@@ -373,28 +373,71 @@ function calculatePowerPerSecond() {
 function renderShop() {
     elements.shopList.innerHTML = '';
     
+    // Group hardware by type and manufacturer
+    const groupedHardware = {
+        'Intel CPUs': [],
+        'AMD CPUs': [],
+        'NVIDIA GPUs': [],
+        'AMD/ATI GPUs': [],
+        'Other GPUs': [],
+        'Motherboards': []
+    };
+    
     hardware.forEach(item => {
-        const count = gameState.hardware[item.id];
-        const canAfford = gameState.credits >= item.cost;
+        if (item.type === 'CPU') {
+            if (item.name.includes('Intel')) {
+                groupedHardware['Intel CPUs'].push(item);
+            } else if (item.name.includes('AMD')) {
+                groupedHardware['AMD CPUs'].push(item);
+            }
+        } else if (item.type === 'GPU') {
+            if (item.name.includes('NVIDIA') || item.name.includes('GeForce') || item.name.includes('RIVA') || item.name.includes('TNT')) {
+                groupedHardware['NVIDIA GPUs'].push(item);
+            } else if (item.name.includes('AMD') || item.name.includes('ATI') || item.name.includes('Radeon')) {
+                groupedHardware['AMD/ATI GPUs'].push(item);
+            } else {
+                groupedHardware['Other GPUs'].push(item);
+            }
+        } else if (item.type === 'Motherboard') {
+            groupedHardware['Motherboards'].push(item);
+        }
+    });
+    
+    // Render each group
+    Object.keys(groupedHardware).forEach(groupName => {
+        const items = groupedHardware[groupName];
+        if (items.length === 0) return;
         
-        const shopDiv = document.createElement('div');
-        shopDiv.className = 'shop-item';
+        // Create group header
+        const groupHeader = document.createElement('h3');
+        groupHeader.className = 'shop-group-header';
+        groupHeader.textContent = groupName;
+        elements.shopList.appendChild(groupHeader);
         
-        const button = document.createElement('button');
-        button.className = 'shop-btn';
-        button.disabled = !canAfford;
-        
-        button.innerHTML = `
-            <span class="item-name">${item.name} (${item.year})</span>
-            <span class="item-description">${item.description} | +${formatNumber(item.power)} power/sec</span>
-            <span class="item-cost">Cost: ${formatNumber(item.cost)} Credits</span>
-            ${count > 0 ? `<span class="item-count"> | Owned: ${count}</span>` : ''}
-        `;
-        
-        button.addEventListener('click', () => buyHardware(item));
-        
-        shopDiv.appendChild(button);
-        elements.shopList.appendChild(shopDiv);
+        // Render items in this group
+        items.forEach(item => {
+            const count = gameState.hardware[item.id];
+            const canAfford = gameState.credits >= item.cost;
+            
+            const shopDiv = document.createElement('div');
+            shopDiv.className = 'shop-item';
+            
+            const button = document.createElement('button');
+            button.className = 'shop-btn';
+            button.disabled = !canAfford;
+            
+            button.innerHTML = `
+                <span class="item-name">${item.name} (${item.year})</span>
+                <span class="item-description">${item.description} | +${formatNumber(item.power)} power/sec</span>
+                <span class="item-cost">Cost: ${formatNumber(item.cost)} Credits</span>
+                ${count > 0 ? `<span class="item-count"> | Owned: ${count}</span>` : ''}
+            `;
+            
+            button.addEventListener('click', () => buyHardware(item));
+            
+            shopDiv.appendChild(button);
+            elements.shopList.appendChild(shopDiv);
+        });
     });
 }
 
