@@ -540,6 +540,28 @@ elements.hackBtn.addEventListener('click', hack);
 elements.saveBtn.addEventListener('click', saveGame);
 elements.resetBtn.addEventListener('click', resetGame);
 
+// Tab switching function
+function switchTab(tabName) {
+    // Hide all tab contents
+    document.querySelectorAll('.tab-content').forEach(content => {
+        content.classList.remove('active');
+    });
+    
+    // Deactivate all tab buttons
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    // Show selected tab content and activate button
+    if (tabName === 'shop') {
+        document.getElementById('shopContent').classList.add('active');
+        document.getElementById('shopTab').classList.add('active');
+    } else if (tabName === 'missions') {
+        document.getElementById('missionsContent').classList.add('active');
+        document.getElementById('missionsTab').classList.add('active');
+    }
+}
+
 // Initialize game
 function init() {
     loadGame();
