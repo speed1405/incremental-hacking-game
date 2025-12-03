@@ -554,7 +554,7 @@ function renderShop() {
             
             // Add sell button if owned
             const sellButton = count > 0 
-                ? `<button class="sell-btn" data-sell-id="${item.id}" onclick="event.stopPropagation(); sellHardware(hardware.find(h => h.id === '${item.id}'))">
+                ? `<button class="sell-btn" data-sell-id="${item.id}">
                     💰 Sell (${formatNumber(Math.floor(item.cost * 0.5))})
                   </button>` 
                 : '';
@@ -568,7 +568,19 @@ function renderShop() {
             
             button.addEventListener('click', () => buyHardware(item));
             
+            // Add event listener for sell button if it exists
             shopDiv.appendChild(button);
+            
+            if (count > 0) {
+                const sellBtn = button.querySelector('.sell-btn');
+                if (sellBtn) {
+                    sellBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        sellHardware(item);
+                    });
+                }
+            }
+            
             elements.shopList.appendChild(shopDiv);
         });
     });
@@ -604,7 +616,7 @@ function renderMissions() {
             : '';
         
         const queueButton = hasLevel 
-            ? `<button class="queue-btn" data-mission-queue-id="${mission.id}" onclick="event.stopPropagation(); toggleMissionQueue('${mission.id}')">
+            ? `<button class="queue-btn" data-mission-queue-id="${mission.id}">
                 ${isQueued ? '✓ Queued' : '➕ Queue'}
               </button>` 
             : '';
@@ -620,6 +632,18 @@ function renderMissions() {
         button.addEventListener('click', () => completeMission(mission));
         
         missionDiv.appendChild(button);
+        
+        // Add event listener for queue button if it exists
+        if (hasLevel) {
+            const queueBtn = button.querySelector('.queue-btn');
+            if (queueBtn) {
+                queueBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    toggleMissionQueue(mission.id);
+                });
+            }
+        }
+        
         elements.missionsList.appendChild(missionDiv);
     });
     
@@ -659,10 +683,18 @@ function renderMissionQueue() {
         
         const queueItem = document.createElement('div');
         queueItem.className = 'queue-item';
-        queueItem.innerHTML = `
-            <span>${mission.name}</span>
-            <span class="queue-item-remove" onclick="toggleMissionQueue('${missionId}')">✕</span>
-        `;
+        
+        const nameSpan = document.createElement('span');
+        nameSpan.textContent = mission.name;
+        
+        const removeSpan = document.createElement('span');
+        removeSpan.className = 'queue-item-remove';
+        removeSpan.textContent = '✕';
+        removeSpan.style.cursor = 'pointer';
+        removeSpan.addEventListener('click', () => toggleMissionQueue(missionId));
+        
+        queueItem.appendChild(nameSpan);
+        queueItem.appendChild(removeSpan);
         queueElement.appendChild(queueItem);
     });
 }
@@ -984,6 +1016,24 @@ let shopFilters = {
     type: 'all'
 };
 
+// Helper functions for manufacturer detection
+function isNvidiaGPU(nameLower) {
+    const nvidiaIdentifiers = ['nvidia', 'geforce', 'riva', 'tnt'];
+    return nvidiaIdentifiers.some(id => nameLower.includes(id));
+}
+
+function isAtiAmdGPU(nameLower, itemType) {
+    if (itemType !== 'GPU') return false;
+    const atiAmdIdentifiers = ['ati', 'radeon'];
+    return atiAmdIdentifiers.some(id => nameLower.includes(id)) || 
+           (nameLower.includes('amd') && itemType === 'GPU');
+}
+
+function isOtherGPU(nameLower) {
+    const knownManufacturers = ['intel', 'amd', 'nvidia', 'geforce', 'ati', 'radeon'];
+    return !knownManufacturers.some(brand => nameLower.includes(brand));
+}
+
 // Filter and sort hardware
 function getFilteredHardware() {
     let filtered = [...hardware];
@@ -1008,11 +1058,11 @@ function getFilteredHardware() {
                 case 'amd':
                     return nameLower.includes('amd');
                 case 'nvidia':
-                    return nameLower.includes('nvidia') || nameLower.includes('geforce') || nameLower.includes('riva') || nameLower.includes('tnt');
+                    return isNvidiaGPU(nameLower);
                 case 'ati':
-                    return nameLower.includes('ati') || (nameLower.includes('amd') && item.type === 'GPU') || nameLower.includes('radeon');
+                    return isAtiAmdGPU(nameLower, item.type);
                 case 'other':
-                    return !nameLower.includes('intel') && !nameLower.includes('amd') && !nameLower.includes('nvidia') && !nameLower.includes('geforce') && !nameLower.includes('ati') && !nameLower.includes('radeon');
+                    return isOtherGPU(nameLower);
                 default:
                     return true;
             }
