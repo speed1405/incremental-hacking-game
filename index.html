@@ -12,6 +12,7 @@
             <h1>🔓 Incremental Hacking Game</h1>
             <p class="subtitle">Build your hacking empire</p>
             <div class="header-buttons">
+                <button id="compactModeBtn" class="theme-btn" aria-label="Toggle compact mode">📦 Compact</button>
                 <button id="themeBtn" class="theme-btn" aria-label="Change theme">🎨 Theme</button>
                 <button id="helpBtn" class="help-btn" aria-label="Open help modal">❓ Help</button>
             </div>
@@ -102,6 +103,11 @@
 
                 <!-- Missions Tab Content -->
                 <div id="missionsContent" class="tab-content">
+                    <div class="mission-queue-section">
+                        <h3>🔄 Mission Queue (<span id="queueCount">0</span>)</h3>
+                        <div id="missionQueue" class="mission-queue"></div>
+                        <button id="clearQueue" class="utility-btn" style="margin: 10px 0;">Clear Queue</button>
+                    </div>
                     <div id="missionsList" class="missions-list">
                         <!-- Missions will be generated dynamically -->
                     </div>

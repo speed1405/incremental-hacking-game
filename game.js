@@ -13,7 +13,8 @@ const gameState = {
     powerPerSecond: 0,
     level: 1,
     hardware: {},
-    completedMissions: []
+    completedMissions: [],
+    missionQueue: [] // Queue of missions to auto-complete
 };
 
 // Hardware Shop Definitions (Real-life hardware from 1985-2025)
@@ -413,6 +414,24 @@ function buyHardware(item) {
     }
 }
 
+// Sell hardware (50% refund)
+function sellHardware(item) {
+    if (gameState.hardware[item.id] > 0) {
+        const refund = Math.floor(item.cost * 0.5); // 50% refund
+        gameState.credits += refund;
+        gameState.hardware[item.id]--;
+        
+        // Update power per second
+        calculatePowerPerSecond();
+        
+        // Show floating number for refund
+        showFloatingNumber(`+${formatNumber(refund)} Credits`, window.innerWidth / 2, window.innerHeight / 2, 'credits');
+        
+        updateDisplay();
+        renderShop();
+    }
+}
+
 // Complete mission
 function completeMission(mission) {
     if (gameState.hackingPower >= mission.powerCost && gameState.level >= mission.levelRequired) {
@@ -533,8 +552,15 @@ function renderShop() {
             // Add rarity badge
             const rarityBadge = `<span class="rarity-badge ${getRarityClass(item.rarity)}">${item.rarity.toUpperCase()}</span>`;
             
+            // Add sell button if owned
+            const sellButton = count > 0 
+                ? `<button class="sell-btn" data-sell-id="${item.id}" onclick="event.stopPropagation(); sellHardware(hardware.find(h => h.id === '${item.id}'))">
+                    💰 Sell (${formatNumber(Math.floor(item.cost * 0.5))})
+                  </button>` 
+                : '';
+            
             button.innerHTML = `
-                <span class="item-name">${item.name} (${item.year}) ${rarityBadge}</span>
+                <span class="item-name">${item.name} (${item.year}) ${rarityBadge} ${sellButton}</span>
                 <span class="item-description">${item.description} | +${formatNumber(item.power)} power/sec</span>
                 <span class="item-cost">Cost: ${formatNumber(item.cost)} Credits</span>
                 ${count > 0 ? `<span class="item-count"> | Owned: ${count}</span>` : ''}
@@ -559,16 +585,17 @@ function renderMissions() {
         const canAfford = gameState.hackingPower >= mission.powerCost;
         const hasLevel = gameState.level >= mission.levelRequired;
         const canComplete = canAfford && hasLevel;
+        const isQueued = gameState.missionQueue.includes(mission.id);
         
         const missionDiv = document.createElement('div');
         missionDiv.className = 'mission-item';
         
         const button = document.createElement('button');
-        button.className = 'mission-btn';
+        button.className = `mission-btn ${isQueued ? 'queued' : ''}`;
         if (!hasLevel) {
             button.classList.add('locked');
         }
-        button.disabled = !canComplete;
+        button.disabled = !canComplete && !isQueued;
         button.setAttribute('data-mission-id', mission.id);
         
         // Build button content with level requirement
@@ -576,8 +603,14 @@ function renderMissions() {
             ? `<span class="level-required">🔒 Requires Level ${mission.levelRequired}</span>` 
             : '';
         
+        const queueButton = hasLevel 
+            ? `<button class="queue-btn" data-mission-queue-id="${mission.id}" onclick="event.stopPropagation(); toggleMissionQueue('${mission.id}')">
+                ${isQueued ? '✓ Queued' : '➕ Queue'}
+              </button>` 
+            : '';
+        
         button.innerHTML = `
-            <span class="item-name">${mission.name}</span>
+            <span class="item-name">${mission.name} ${queueButton}</span>
             <span class="item-description">${mission.description}</span>
             ${levelRequirement}
             <span class="item-cost">Cost: ${formatNumber(mission.powerCost)} Power</span>
@@ -589,6 +622,73 @@ function renderMissions() {
         missionDiv.appendChild(button);
         elements.missionsList.appendChild(missionDiv);
     });
+    
+    // Update queue display
+    renderMissionQueue();
+}
+
+// Toggle mission in queue
+function toggleMissionQueue(missionId) {
+    const index = gameState.missionQueue.indexOf(missionId);
+    if (index > -1) {
+        gameState.missionQueue.splice(index, 1);
+    } else {
+        gameState.missionQueue.push(missionId);
+    }
+    renderMissions();
+}
+
+// Render mission queue
+function renderMissionQueue() {
+    const queueElement = document.getElementById('missionQueue');
+    const queueCount = document.getElementById('queueCount');
+    
+    if (!queueElement || !queueCount) return;
+    
+    queueCount.textContent = gameState.missionQueue.length;
+    
+    if (gameState.missionQueue.length === 0) {
+        queueElement.innerHTML = '<p style="color: #666; text-align: center; margin: 10px;">No missions queued</p>';
+        return;
+    }
+    
+    queueElement.innerHTML = '';
+    gameState.missionQueue.forEach(missionId => {
+        const mission = missions.find(m => m.id === missionId);
+        if (!mission) return;
+        
+        const queueItem = document.createElement('div');
+        queueItem.className = 'queue-item';
+        queueItem.innerHTML = `
+            <span>${mission.name}</span>
+            <span class="queue-item-remove" onclick="toggleMissionQueue('${missionId}')">✕</span>
+        `;
+        queueElement.appendChild(queueItem);
+    });
+}
+
+// Process mission queue
+function processMissionQueue() {
+    if (gameState.missionQueue.length === 0) return;
+    
+    // Try to complete queued missions
+    for (let i = 0; i < gameState.missionQueue.length; i++) {
+        const missionId = gameState.missionQueue[i];
+        const mission = missions.find(m => m.id === missionId);
+        
+        if (!mission) continue;
+        
+        const canAfford = gameState.hackingPower >= mission.powerCost;
+        const hasLevel = gameState.level >= mission.levelRequired;
+        
+        if (canAfford && hasLevel) {
+            // Complete mission
+            completeMission(mission);
+            // Remove from queue
+            gameState.missionQueue.splice(i, 1);
+            i--; // Adjust index after removal
+        }
+    }
 }
 
 // Update button states without re-rendering
@@ -625,6 +725,9 @@ function gameLoop() {
         gameState.hackingPower += gameState.powerPerSecond / 10; // Divide by 10 for smoother increment
         updateDisplay();
     }
+    
+    // Process mission queue
+    processMissionQueue();
     
     // Only update button states, don't re-render
     updateButtonStates();
@@ -758,10 +861,44 @@ function loadTheme() {
     }
 }
 
+// Toggle compact mode
+function toggleCompactMode() {
+    document.body.classList.toggle('compact-mode');
+    const isCompact = document.body.classList.contains('compact-mode');
+    localStorage.setItem('compactMode', isCompact ? 'true' : 'false');
+    
+    // Update button text
+    const btn = document.getElementById('compactModeBtn');
+    if (btn) {
+        btn.textContent = isCompact ? '📦 Normal' : '📦 Compact';
+    }
+}
+
+// Load compact mode preference
+function loadCompactMode() {
+    const isCompact = localStorage.getItem('compactMode') === 'true';
+    if (isCompact) {
+        document.body.classList.add('compact-mode');
+        const btn = document.getElementById('compactModeBtn');
+        if (btn) {
+            btn.textContent = '📦 Normal';
+        }
+    }
+}
+
 // Event Listeners
 elements.hackBtn.addEventListener('click', hack);
 elements.saveBtn.addEventListener('click', saveGame);
 elements.resetBtn.addEventListener('click', resetGame);
+
+// Clear mission queue button
+const clearQueueBtn = document.getElementById('clearQueue');
+if (clearQueueBtn) {
+    clearQueueBtn.addEventListener('click', () => {
+        gameState.missionQueue = [];
+        renderMissions();
+    });
+}
 
 // Help modal event listeners
 elements.helpBtn.addEventListener('click', showHelp);
@@ -787,6 +924,12 @@ elements.tutorialOverlay.addEventListener('click', (e) => {
 // Theme modal event listeners
 elements.themeBtn.addEventListener('click', showThemeModal);
 elements.themeModalClose.addEventListener('click', hideThemeModal);
+
+// Compact mode button
+const compactModeBtn = document.getElementById('compactModeBtn');
+if (compactModeBtn) {
+    compactModeBtn.addEventListener('click', toggleCompactMode);
+}
 
 // Close theme modal when clicking outside
 elements.themeModal.addEventListener('click', (e) => {
@@ -928,6 +1071,7 @@ function updatePowerCalculator() {
 function init() {
     loadGame();
     loadTheme(); // Load saved theme
+    loadCompactMode(); // Load compact mode preference
     updateDisplay();
     renderShop();
     renderMissions();
