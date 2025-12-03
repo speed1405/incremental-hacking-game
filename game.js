@@ -14,7 +14,7 @@ const gameState = {
     completedMissions: []
 };
 
-// Hardware Shop Definitions (Real-life hardware from 1989-2025)
+// Hardware Shop Definitions (Real-life hardware from 1985-2025)
 const hardware = [
     // CPUs - Real Intel and AMD processors
     { id: 'cpu_i386', name: '💻 Intel 80386', year: 1985, type: 'CPU', cost: 10, power: 1, description: '32-bit processor' },
@@ -268,12 +268,6 @@ function getLevelBonus() {
     // Calculate power generation multiplier based on level
     // Level 1 = 1.00x (no bonus), Level 2 = 1.01x (+1%), Level 10 = 1.09x (+9%), etc.
     return 1 + (gameState.level - 1) * LEVEL_BONUS_PERCENT;
-}
-
-// Calculate upgrade cost
-function getUpgradeCost(upgrade) {
-    const count = gameState.upgrades[upgrade.id];
-    return Math.floor(upgrade.baseCost * Math.pow(upgrade.costMultiplier, count));
 }
 
 // Update display
