@@ -358,6 +358,24 @@ button {
     font-size: 0.9em;
 }
 
+.level-required {
+    display: block;
+    color: #ff6600;
+    font-size: 0.9em;
+    font-weight: bold;
+    margin-top: 5px;
+    text-shadow: 0 0 5px #ff6600;
+}
+
+.mission-btn.locked {
+    border-color: #884400;
+    background: rgba(50, 20, 0, 0.3);
+}
+
+.mission-btn.locked:hover:not(:disabled) {
+    background: rgba(80, 30, 0, 0.4);
+}
+
 /* Footer */
 footer {
     text-align: center;
