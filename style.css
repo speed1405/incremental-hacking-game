@@ -1,0 +1,318 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', monospace;
+    background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+    color: #00ff00;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Header */
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: rgba(0, 255, 0, 0.1);
+    border: 2px solid #00ff00;
+    border-radius: 10px;
+}
+
+header h1 {
+    font-size: 2.5em;
+    text-shadow: 0 0 10px #00ff00;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #00cc00;
+    font-size: 1.2em;
+}
+
+/* Game Area */
+.game-area {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+/* Resources Section */
+.resources {
+    grid-column: 1 / -1;
+    background: rgba(0, 100, 0, 0.2);
+    padding: 20px;
+    border: 2px solid #00cc00;
+    border-radius: 10px;
+}
+
+.resource-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+.resource-item.level-display {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #00cc00;
+}
+
+.resource-item.level-display .resource-value {
+    color: #ffaa00;
+    text-shadow: 0 0 10px #ffaa00;
+    font-weight: bold;
+}
+
+.resource-item.xp-bar-container {
+    display: block;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #00cc00;
+}
+
+.xp-bar-wrapper {
+    width: 100%;
+}
+
+.xp-bar-bg {
+    width: 100%;
+    height: 25px;
+    background: rgba(0, 50, 0, 0.5);
+    border: 2px solid #00cc00;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 5px;
+}
+
+.xp-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00cc00, #00ff00);
+    width: 0%;
+    transition: width 0.5s ease;
+    box-shadow: 0 0 10px #00ff00;
+}
+
+.xp-bar-text {
+    display: block;
+    text-align: center;
+    font-size: 0.9em;
+    color: #00ff00;
+}
+
+.resource-label {
+    font-weight: bold;
+}
+
+.resource-value {
+    color: #ffff00;
+    text-shadow: 0 0 5px #ffff00;
+}
+
+/* Level Up Notification */
+.level-up-notification {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, #1a1a2e 0%, #0f0f23 100%);
+    border: 3px solid #ffaa00;
+    border-radius: 15px;
+    padding: 40px 60px;
+    z-index: 10000;
+    animation: levelUpPop 0.5s ease, levelUpFloat 2.5s ease 0.5s;
+    box-shadow: 0 0 30px rgba(255, 170, 0, 0.5), 0 0 60px rgba(255, 170, 0, 0.3);
+}
+
+.notification-content {
+    text-align: center;
+    color: #ffaa00;
+    text-shadow: 0 0 10px #ffaa00;
+    font-size: 1.5em;
+    line-height: 1.6;
+}
+
+.level-text {
+    font-size: 2em;
+    font-weight: bold;
+    color: #00ff00;
+    text-shadow: 0 0 20px #00ff00;
+    display: block;
+    margin: 10px 0;
+}
+
+.bonus-text {
+    font-size: 1.2em;
+    color: #00ffff;
+    text-shadow: 0 0 10px #00ffff;
+}
+
+@keyframes levelUpPop {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes levelUpFloat {
+    0% {
+        transform: translate(-50%, -50%);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -70%);
+        opacity: 0;
+    }
+}
+
+/* Sections */
+section {
+    background: rgba(0, 50, 0, 0.3);
+    padding: 20px;
+    border: 2px solid #006600;
+    border-radius: 10px;
+}
+
+section h2 {
+    margin-bottom: 15px;
+    color: #00ff00;
+    text-shadow: 0 0 5px #00ff00;
+    border-bottom: 1px solid #00cc00;
+    padding-bottom: 10px;
+}
+
+/* Buttons */
+button {
+    font-family: 'Courier New', monospace;
+    cursor: pointer;
+    border: 2px solid;
+    border-radius: 5px;
+    padding: 12px 20px;
+    font-size: 1em;
+    transition: all 0.3s ease;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.action-btn {
+    width: 100%;
+    margin-bottom: 10px;
+    color: #00ff00;
+    border-color: #00ff00;
+}
+
+.action-btn:hover:not(:disabled) {
+    background: rgba(0, 255, 0, 0.2);
+    box-shadow: 0 0 10px #00ff00;
+}
+
+.action-btn.primary {
+    background: rgba(0, 255, 0, 0.1);
+}
+
+.upgrade-btn, .mission-btn {
+    width: 100%;
+    color: #00ff00;
+    border-color: #00cc00;
+    margin-bottom: 10px;
+    text-align: left;
+    position: relative;
+}
+
+.upgrade-btn:hover:not(:disabled), .mission-btn:hover:not(:disabled) {
+    background: rgba(0, 200, 0, 0.2);
+    transform: translateX(5px);
+}
+
+.upgrade-btn:disabled, .mission-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    color: #666;
+    border-color: #444;
+}
+
+.utility-btn {
+    color: #00ff00;
+    border-color: #00ff00;
+    margin: 5px;
+}
+
+.utility-btn:hover {
+    background: rgba(0, 255, 0, 0.2);
+}
+
+.utility-btn.danger {
+    color: #ff0000;
+    border-color: #ff0000;
+}
+
+.utility-btn.danger:hover {
+    background: rgba(255, 0, 0, 0.2);
+}
+
+/* Upgrade and Mission Items */
+.upgrade-item, .mission-item {
+    margin-bottom: 10px;
+}
+
+.item-name {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.item-description {
+    font-size: 0.85em;
+    color: #aaffaa;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.item-cost, .item-reward {
+    font-size: 0.9em;
+    color: #ffff00;
+}
+
+.item-count {
+    color: #00ccff;
+    font-size: 0.9em;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: rgba(0, 100, 0, 0.2);
+    border: 2px solid #00cc00;
+    border-radius: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .game-area {
+        grid-template-columns: 1fr;
+    }
+    
+    header h1 {
+        font-size: 1.8em;
+    }
+}
