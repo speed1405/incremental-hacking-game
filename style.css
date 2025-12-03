@@ -229,7 +229,7 @@ button {
     background: rgba(0, 255, 0, 0.1);
 }
 
-.upgrade-btn, .mission-btn {
+.upgrade-btn, .mission-btn, .shop-btn {
     width: 100%;
     color: #00ff00;
     border-color: #00cc00;
@@ -238,12 +238,12 @@ button {
     position: relative;
 }
 
-.upgrade-btn:hover:not(:disabled), .mission-btn:hover:not(:disabled) {
+.upgrade-btn:hover:not(:disabled), .mission-btn:hover:not(:disabled), .shop-btn:hover:not(:disabled) {
     background: rgba(0, 200, 0, 0.2);
     transform: translateX(5px);
 }
 
-.upgrade-btn:disabled, .mission-btn:disabled {
+.upgrade-btn:disabled, .mission-btn:disabled, .shop-btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
     color: #666;
@@ -269,8 +269,8 @@ button {
     background: rgba(255, 0, 0, 0.2);
 }
 
-/* Upgrade and Mission Items */
-.upgrade-item, .mission-item {
+/* Upgrade, Shop and Mission Items */
+.upgrade-item, .mission-item, .shop-item {
     margin-bottom: 10px;
 }
 
