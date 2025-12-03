@@ -708,7 +708,12 @@ function processMissionQueue() {
         const missionId = gameState.missionQueue[i];
         const mission = missions.find(m => m.id === missionId);
         
-        if (!mission) continue;
+        if (!mission) {
+            // Remove invalid mission from queue
+            gameState.missionQueue.splice(i, 1);
+            i--;
+            continue;
+        }
         
         const canAfford = gameState.hackingPower >= mission.powerCost;
         const hasLevel = gameState.level >= mission.levelRequired;
@@ -1024,12 +1029,12 @@ function isNvidiaGPU(nameLower) {
 
 function isAtiAmdGPU(nameLower, itemType) {
     if (itemType !== 'GPU') return false;
-    const atiAmdIdentifiers = ['ati', 'radeon'];
-    return atiAmdIdentifiers.some(id => nameLower.includes(id)) || 
-           (nameLower.includes('amd') && itemType === 'GPU');
+    const atiAmdIdentifiers = ['ati', 'radeon', 'amd'];
+    return atiAmdIdentifiers.some(id => nameLower.includes(id));
 }
 
-function isOtherGPU(nameLower) {
+function isOtherGPU(nameLower, itemType) {
+    if (itemType !== 'GPU') return false;
     const knownManufacturers = ['intel', 'amd', 'nvidia', 'geforce', 'ati', 'radeon'];
     return !knownManufacturers.some(brand => nameLower.includes(brand));
 }
@@ -1062,7 +1067,7 @@ function getFilteredHardware() {
                 case 'ati':
                     return isAtiAmdGPU(nameLower, item.type);
                 case 'other':
-                    return isOtherGPU(nameLower);
+                    return isOtherGPU(nameLower, item.type);
                 default:
                     return true;
             }
@@ -1272,10 +1277,16 @@ function scheduleRandomTips() {
     setTimeout(() => {
         showRandomTip();
         
-        // Then show a tip every 2-3 minutes
-        setInterval(() => {
-            showRandomTip();
-        }, 120000 + Math.random() * 60000); // 2-3 minutes
+        // Schedule next tip
+        function scheduleNextTip() {
+            const randomDelay = 120000 + Math.random() * 60000; // 2-3 minutes
+            setTimeout(() => {
+                showRandomTip();
+                scheduleNextTip(); // Schedule the next one
+            }, randomDelay);
+        }
+        
+        scheduleNextTip();
     }, 10000);
 }
 
