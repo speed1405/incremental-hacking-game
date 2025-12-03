@@ -227,7 +227,8 @@ const elements = {
     helpModal: document.getElementById('helpModal'),
     tutorialOverlay: document.getElementById('tutorialOverlay'),
     closeTutorial: document.getElementById('closeTutorial'),
-    dontShowAgain: document.getElementById('dontShowAgain')
+    dontShowAgain: document.getElementById('dontShowAgain'),
+    modalClose: document.querySelector('.modal-close')
 };
 
 // Format numbers for display
@@ -625,9 +626,8 @@ elements.resetBtn.addEventListener('click', resetGame);
 elements.helpBtn.addEventListener('click', showHelp);
 
 // Close help modal when clicking the X
-const modalClose = document.querySelector('.modal-close');
-if (modalClose) {
-    modalClose.addEventListener('click', hideHelp);
+if (elements.modalClose) {
+    elements.modalClose.addEventListener('click', hideHelp);
 }
 
 // Close help modal when clicking outside
