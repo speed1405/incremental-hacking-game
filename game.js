@@ -1,5 +1,6 @@
 // Game Configuration
 const LEVEL_BONUS_PERCENT = 0.01; // 1% power bonus per level
+const LEVEL_BONUS_DISPLAY = LEVEL_BONUS_PERCENT * 100; // For display purposes (1)
 const NOTIFICATION_DURATION = 3000; // Duration in milliseconds
 
 // Game State
@@ -163,10 +164,14 @@ function getLevelProgress() {
     const previousLevelXP = gameState.level > 1 ? getXPForLevel(gameState.level - 1) : 0;
     const xpIntoLevel = gameState.xp - previousLevelXP;
     const xpNeeded = currentLevelXP - previousLevelXP;
+    
+    // Prevent division by zero
+    const percentage = xpNeeded > 0 ? (xpIntoLevel / xpNeeded) * 100 : 0;
+    
     return {
-        current: xpIntoLevel,
-        needed: xpNeeded,
-        percentage: (xpIntoLevel / xpNeeded) * 100
+        current: Math.max(0, xpIntoLevel),
+        needed: Math.max(1, xpNeeded),
+        percentage: percentage
     };
 }
 
@@ -191,7 +196,7 @@ function checkLevelUp() {
 
 // Show level up notification
 function showLevelUpNotification() {
-    const bonusPercent = (gameState.level - 1) * (LEVEL_BONUS_PERCENT * 100);
+    const bonusPercent = (gameState.level - 1) * LEVEL_BONUS_DISPLAY;
     
     // Create notification element
     const notification = document.createElement('div');
