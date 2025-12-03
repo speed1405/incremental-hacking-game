@@ -54,19 +54,25 @@
                 </button>
             </section>
 
-            <!-- Shop Section -->
-            <section class="shop">
-                <h2>Hardware Shop</h2>
-                <div id="shopList" class="shop-list">
-                    <!-- Hardware items will be generated dynamically -->
+            <!-- Tabbed Section for Shop and Missions -->
+            <section class="tabbed-section">
+                <div class="tab-buttons">
+                    <button id="shopTab" class="tab-btn active" onclick="switchTab('shop')">🛒 Hardware Shop</button>
+                    <button id="missionsTab" class="tab-btn" onclick="switchTab('missions')">🎯 Missions</button>
                 </div>
-            </section>
 
-            <!-- Missions Section -->
-            <section class="missions">
-                <h2>Missions</h2>
-                <div id="missionsList" class="missions-list">
-                    <!-- Missions will be generated dynamically -->
+                <!-- Shop Tab Content -->
+                <div id="shopContent" class="tab-content active">
+                    <div id="shopList" class="shop-list">
+                        <!-- Hardware items will be generated dynamically -->
+                    </div>
+                </div>
+
+                <!-- Missions Tab Content -->
+                <div id="missionsContent" class="tab-content">
+                    <div id="missionsList" class="missions-list">
+                        <!-- Missions will be generated dynamically -->
+                    </div>
                 </div>
             </section>
         </div>

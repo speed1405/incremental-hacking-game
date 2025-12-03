@@ -201,6 +201,52 @@ section h2 {
     padding-bottom: 10px;
 }
 
+/* Tabbed Section */
+.tabbed-section {
+    grid-column: 1 / -1;
+}
+
+.tab-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 15px 20px;
+    font-size: 1.1em;
+    font-weight: bold;
+    background: rgba(0, 50, 0, 0.3);
+    border: 2px solid #006600;
+    border-radius: 8px;
+    color: #00cc00;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+    background: rgba(0, 100, 0, 0.4);
+    border-color: #00ff00;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 255, 0, 0.2);
+}
+
+.tab-btn.active {
+    background: rgba(0, 255, 0, 0.2);
+    border-color: #00ff00;
+    color: #00ff00;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
 /* Buttons */
 button {
     font-family: 'Courier New', monospace;
