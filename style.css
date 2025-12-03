@@ -63,6 +63,56 @@ header h1 {
     font-size: 1.2em;
 }
 
+.resource-item.level-display {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #00cc00;
+}
+
+.resource-item.level-display .resource-value {
+    color: #ffaa00;
+    text-shadow: 0 0 10px #ffaa00;
+    font-weight: bold;
+}
+
+.resource-item.xp-bar-container {
+    display: block;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #00cc00;
+}
+
+.xp-bar-wrapper {
+    width: 100%;
+}
+
+.xp-bar-bg {
+    width: 100%;
+    height: 25px;
+    background: rgba(0, 50, 0, 0.5);
+    border: 2px solid #00cc00;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 5px;
+}
+
+.xp-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00cc00, #00ff00);
+    width: 0%;
+    transition: width 0.5s ease;
+    box-shadow: 0 0 10px #00ff00;
+}
+
+.xp-bar-text {
+    display: block;
+    text-align: center;
+    font-size: 0.9em;
+    color: #00ff00;
+}
+
 .resource-label {
     font-weight: bold;
 }
@@ -70,6 +120,69 @@ header h1 {
 .resource-value {
     color: #ffff00;
     text-shadow: 0 0 5px #ffff00;
+}
+
+/* Level Up Notification */
+.level-up-notification {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, #1a1a2e 0%, #0f0f23 100%);
+    border: 3px solid #ffaa00;
+    border-radius: 15px;
+    padding: 40px 60px;
+    z-index: 10000;
+    animation: levelUpPop 0.5s ease, levelUpFloat 2.5s ease 0.5s;
+    box-shadow: 0 0 30px rgba(255, 170, 0, 0.5), 0 0 60px rgba(255, 170, 0, 0.3);
+}
+
+.notification-content {
+    text-align: center;
+    color: #ffaa00;
+    text-shadow: 0 0 10px #ffaa00;
+    font-size: 1.5em;
+    line-height: 1.6;
+}
+
+.level-text {
+    font-size: 2em;
+    font-weight: bold;
+    color: #00ff00;
+    text-shadow: 0 0 20px #00ff00;
+    display: block;
+    margin: 10px 0;
+}
+
+.bonus-text {
+    font-size: 1.2em;
+    color: #00ffff;
+    text-shadow: 0 0 10px #00ffff;
+}
+
+@keyframes levelUpPop {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes levelUpFloat {
+    0% {
+        transform: translate(-50%, -50%);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -70%);
+        opacity: 0;
+    }
 }
 
 /* Sections */

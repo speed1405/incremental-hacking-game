@@ -4,6 +4,7 @@ const gameState = {
     xp: 0,
     credits: 0,
     powerPerSecond: 0,
+    level: 1,
     upgrades: {},
     completedMissions: []
 };
@@ -126,6 +127,9 @@ const elements = {
     xp: document.getElementById('xp'),
     credits: document.getElementById('credits'),
     powerPerSec: document.getElementById('powerPerSec'),
+    level: document.getElementById('level'),
+    levelProgress: document.getElementById('levelProgress'),
+    xpProgress: document.getElementById('xpProgress'),
     hackBtn: document.getElementById('hackBtn'),
     upgradesList: document.getElementById('upgradesList'),
     missionsList: document.getElementById('missionsList'),
@@ -143,6 +147,69 @@ function formatNumber(num) {
     return Math.floor(num).toString();
 }
 
+// Calculate XP required for next level
+function getXPForLevel(level) {
+    // Formula: 100 * level^1.5 (exponential growth)
+    return Math.floor(100 * Math.pow(level, 1.5));
+}
+
+// Get current level progress
+function getLevelProgress() {
+    const currentLevelXP = getXPForLevel(gameState.level);
+    const previousLevelXP = gameState.level > 1 ? getXPForLevel(gameState.level - 1) : 0;
+    const xpIntoLevel = gameState.xp - previousLevelXP;
+    const xpNeeded = currentLevelXP - previousLevelXP;
+    return {
+        current: xpIntoLevel,
+        needed: xpNeeded,
+        percentage: (xpIntoLevel / xpNeeded) * 100
+    };
+}
+
+// Check for level up
+function checkLevelUp() {
+    const xpRequired = getXPForLevel(gameState.level);
+    
+    if (gameState.xp >= xpRequired) {
+        gameState.level++;
+        
+        // Show level up notification
+        showLevelUpNotification();
+        
+        // Recalculate power per second with level bonus
+        calculatePowerPerSecond();
+        
+        // Check if we can level up again
+        checkLevelUp();
+    }
+}
+
+// Show level up notification
+function showLevelUpNotification() {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = 'level-up-notification';
+    notification.innerHTML = `
+        <div class="notification-content">
+            🎉 LEVEL UP! 🎉<br>
+            <span class="level-text">Level ${gameState.level}</span><br>
+            <span class="bonus-text">+${gameState.level}% Power Bonus!</span>
+        </div>
+    `;
+    document.body.appendChild(notification);
+    
+    // Remove notification after animation
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
+}
+
+// Get level bonus multiplier
+function getLevelBonus() {
+    // Each level gives 1% bonus to power generation
+    return 1 + (gameState.level - 1) * 0.01;
+}
+
 // Calculate upgrade cost
 function getUpgradeCost(upgrade) {
     const count = gameState.upgrades[upgrade.id];
@@ -155,6 +222,19 @@ function updateDisplay() {
     elements.xp.textContent = formatNumber(gameState.xp);
     elements.credits.textContent = formatNumber(gameState.credits);
     elements.powerPerSec.textContent = formatNumber(gameState.powerPerSecond);
+    
+    // Update level display
+    if (elements.level) {
+        elements.level.textContent = gameState.level;
+    }
+    
+    // Update XP progress bar
+    if (elements.levelProgress && elements.xpProgress) {
+        const progress = getLevelProgress();
+        const percentage = Math.min(progress.percentage, 100);
+        elements.levelProgress.style.width = percentage + '%';
+        elements.xpProgress.textContent = `${formatNumber(progress.current)} / ${formatNumber(progress.needed)} XP`;
+    }
 }
 
 // Manual hack action
@@ -186,6 +266,9 @@ function completeMission(mission) {
         gameState.xp += mission.xpReward;
         gameState.credits += mission.creditReward;
         
+        // Check for level up
+        checkLevelUp();
+        
         updateDisplay();
         renderMissions();
     }
@@ -198,7 +281,10 @@ function calculatePowerPerSecond() {
         const count = gameState.upgrades[upgrade.id];
         total += upgrade.powerPerSecond * count;
     });
-    gameState.powerPerSecond = total;
+    
+    // Apply level bonus
+    const levelBonus = getLevelBonus();
+    gameState.powerPerSecond = total * levelBonus;
 }
 
 // Render upgrades
@@ -282,6 +368,12 @@ function loadGame() {
     if (savedGame) {
         const loaded = JSON.parse(savedGame);
         Object.assign(gameState, loaded);
+        
+        // Set default level if not present (for old saves)
+        if (!gameState.level) {
+            gameState.level = 1;
+        }
+        
         calculatePowerPerSecond();
         updateDisplay();
         renderUpgrades();
@@ -297,6 +389,7 @@ function resetGame() {
         gameState.xp = 0;
         gameState.credits = 0;
         gameState.powerPerSecond = 0;
+        gameState.level = 1;
         gameState.completedMissions = [];
         
         upgrades.forEach(upgrade => {

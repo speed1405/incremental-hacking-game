@@ -5,6 +5,7 @@ A text-based incremental game where you build your hacking empire!
 ## Features
 
 - 💻 **Hacking Power**: The main currency - generate it by hacking or through passive income
+- 🏆 **Leveling System**: Gain levels by earning XP - each level provides a power bonus!
 - ⭐ **XP System**: Gain experience points by completing missions
 - 💰 **Credits**: Earn credits from missions for future features
 - 🚀 **Upgrades**: Purchase upgrades to increase your passive power generation
@@ -22,6 +23,16 @@ Simply open `index.html` in your web browser. No installation required!
 **No dependencies needed** - runs entirely in your browser!
 
 ## Game Mechanics
+
+### Leveling System
+- **Gain XP** by completing missions
+- **Level up** when you reach the XP requirement (100 XP for level 2, 245 XP for level 3, etc.)
+- **Power Bonus**: Each level grants a +1% bonus to all power generation
+  - Level 1: No bonus
+  - Level 2: +1% power bonus
+  - Level 10: +9% power bonus
+  - Level 50: +49% power bonus
+- XP requirements increase exponentially: `100 × level^1.5`
 
 ### Actions
 - **Hack**: Manually generate +1 Hacking Power
@@ -55,10 +66,12 @@ Simply open `index.html` in your web browser. No installation required!
 
 1. Start by manually hacking to build up initial power
 2. Buy your first Auto-Hacker as soon as possible for passive income
-3. Balance between buying upgrades and completing missions
-4. Higher-tier upgrades become more expensive but generate much more power
-5. The game auto-saves in your browser's localStorage
-6. Passive income continues to accumulate even when the page is running in the background!
+3. Complete missions to gain XP and level up for permanent power bonuses
+4. Balance between buying upgrades and completing missions
+5. Higher-tier upgrades become more expensive but generate much more power
+6. Each level gives you a 1% power bonus - the more you level, the stronger you become!
+7. The game auto-saves in your browser's localStorage
+8. Passive income continues to accumulate even when the page is running in the background!
 
 ## Technical Details
 
