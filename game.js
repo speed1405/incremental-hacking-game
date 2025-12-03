@@ -172,9 +172,10 @@ function getLevelProgress() {
 
 // Check for level up
 function checkLevelUp() {
-    const xpRequired = getXPForLevel(gameState.level);
+    let xpRequired = getXPForLevel(gameState.level);
     
-    if (gameState.xp >= xpRequired) {
+    // Use a while loop to handle multiple level-ups safely
+    while (gameState.xp >= xpRequired) {
         gameState.level++;
         
         // Show level up notification
@@ -183,13 +184,15 @@ function checkLevelUp() {
         // Recalculate power per second with level bonus
         calculatePowerPerSecond();
         
-        // Check if we can level up again
-        checkLevelUp();
+        // Update XP requirement for next level
+        xpRequired = getXPForLevel(gameState.level);
     }
 }
 
 // Show level up notification
 function showLevelUpNotification() {
+    const bonusPercent = (gameState.level - 1) * (LEVEL_BONUS_PERCENT * 100);
+    
     // Create notification element
     const notification = document.createElement('div');
     notification.className = 'level-up-notification';
@@ -197,7 +200,7 @@ function showLevelUpNotification() {
         <div class="notification-content">
             🎉 LEVEL UP! 🎉<br>
             <span class="level-text">Level ${gameState.level}</span><br>
-            <span class="bonus-text">+${gameState.level}% Power Bonus!</span>
+            <span class="bonus-text">+${bonusPercent.toFixed(0)}% Total Power Bonus!</span>
         </div>
     `;
     document.body.appendChild(notification);
@@ -210,7 +213,8 @@ function showLevelUpNotification() {
 
 // Get level bonus multiplier
 function getLevelBonus() {
-    // Each level gives a percentage bonus to power generation
+    // Calculate power generation multiplier based on level
+    // Level 1 = 1.00x (no bonus), Level 2 = 1.01x (+1%), Level 10 = 1.09x (+9%), etc.
     return 1 + (gameState.level - 1) * LEVEL_BONUS_PERCENT;
 }
 
