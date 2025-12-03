@@ -506,6 +506,13 @@ function updateButtonStates() {
             const canAfford = gameState.hackingPower >= mission.powerCost;
             const hasLevel = gameState.level >= mission.levelRequired;
             button.disabled = !(canAfford && hasLevel);
+            
+            // Update locked class based on level requirement
+            if (hasLevel) {
+                button.classList.remove('locked');
+            } else {
+                button.classList.add('locked');
+            }
         }
     });
 }
