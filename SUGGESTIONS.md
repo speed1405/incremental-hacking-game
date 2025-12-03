@@ -424,7 +424,7 @@ If implementing these features, here's a suggested priority order:
 - Pet battles or competitions
 
 ### 58. **Voice Acting & Audio Enhancement**
-- Professional voice overs for key moments
+- Professional voice over for key moments
 - Dynamic soundtrack that changes with gameplay
 - Sound effects for all actions
 - Audio settings (volume, mute options)
@@ -480,9 +480,9 @@ If implementing these features, here's a suggested priority order:
 **Phase 5 - Polish & Monetization (Months 9-10)**
 1. Voice Acting & Audio (#58)
 2. Accessibility Features (#59)
-3. Premium cosmetics (optional)
+3. Premium Cosmetics System
 4. Meta-Progression (#60)
-5. Mobile version
+5. Mobile Version Development
 
 ---
 
