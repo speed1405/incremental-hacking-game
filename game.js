@@ -2,6 +2,8 @@
 const LEVEL_BONUS_PERCENT = 0.01; // 1% power bonus per level
 const LEVEL_BONUS_DISPLAY = LEVEL_BONUS_PERCENT * 100; // For display purposes (1)
 const NOTIFICATION_DURATION = 3000; // Duration in milliseconds
+const PARTICLE_DURATION = 1500; // Particle animation duration in milliseconds
+const FLOATING_NUMBER_DURATION = 2000; // Floating number animation duration in milliseconds
 
 // Game State
 const gameState = {
@@ -331,9 +333,10 @@ function createParticles(emoji, count) {
         particle.className = 'particle';
         particle.textContent = emoji;
         
-        // Random position near center of screen
-        const startX = window.innerWidth / 2 + (Math.random() - 0.5) * 400;
-        const startY = window.innerHeight / 2 + (Math.random() - 0.5) * 400;
+        // Random position near center of screen, ensuring particles stay in viewport
+        const maxSpread = Math.min(400, window.innerWidth * 0.4, window.innerHeight * 0.4);
+        const startX = Math.max(50, Math.min(window.innerWidth - 50, window.innerWidth / 2 + (Math.random() - 0.5) * maxSpread));
+        const startY = Math.max(50, Math.min(window.innerHeight - 50, window.innerHeight / 2 + (Math.random() - 0.5) * maxSpread));
         particle.style.left = startX + 'px';
         particle.style.top = startY + 'px';
         
@@ -345,10 +348,10 @@ function createParticles(emoji, count) {
         
         document.body.appendChild(particle);
         
-        // Remove particle after animation
+        // Remove particle after animation completes
         setTimeout(() => {
             particle.remove();
-        }, 1500);
+        }, PARTICLE_DURATION);
     }
 }
 
@@ -363,10 +366,10 @@ function showFloatingNumber(text, x, y, type) {
     
     document.body.appendChild(floatingNum);
     
-    // Remove after animation
+    // Remove after animation completes
     setTimeout(() => {
         floatingNum.remove();
-    }, 2000);
+    }, FLOATING_NUMBER_DURATION);
 }
 
 // Update display
