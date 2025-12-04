@@ -48,11 +48,19 @@ Simply open `index.html` in your web browser. No installation required!
 
 ### Missions
 1. 🌐 **Hack Small Website** - Basic website compromise (50 Power → 10 XP, 5 Credits) - **Level 1+**
-2. 💾 **Steal Database** - Extract sensitive data (200 Power → 50 XP, 25 Credits) - **Level 3+**
-3. 🔐 **Break Encryption** - Crack encryption (500 Power → 150 XP, 75 Credits) - **Level 5+**
-4. 🖥️ **Infiltrate Server** - Root access (1,000 Power → 300 XP, 150 Credits) - **Level 8+**
-5. 🏢 **Hack Corporation** - Corporate networks (2,500 Power → 800 XP, 400 Credits) - **Level 12+**
-6. 🏛️ **Breach Government** - Classified databases (5,000 Power → 2,000 XP, 1,000 Credits) - **Level 16+**
+2. 🔥 **Crack Firewall** - Bypass advanced firewall protection (100 Power → 25 XP, 12 Credits) - **Level 2+**
+3. 💾 **Steal Database** - Extract sensitive data (200 Power → 50 XP, 25 Credits) - **Level 3+**
+4. 🔑 **Steal Credentials** - Phish admin credentials (350 Power → 90 XP, 45 Credits) - **Level 4+**
+5. 🔐 **Break Encryption** - Crack encryption (500 Power → 150 XP, 75 Credits) - **Level 5+**
+6. ⚡ **Launch DDoS Attack** - Overwhelm servers (750 Power → 220 XP, 110 Credits) - **Level 6+**
+7. 🖥️ **Infiltrate Server** - Root access (1,000 Power → 300 XP, 150 Credits) - **Level 8+**
+8. 🐛 **Exploit Zero-Day** - Leverage undiscovered vulnerability (1,500 Power → 450 XP, 225 Credits) - **Level 9+**
+9. 🏢 **Hack Corporation** - Corporate networks (2,500 Power → 800 XP, 400 Credits) - **Level 12+**
+10. 💀 **Deploy Ransomware** - Encrypt targets (3,500 Power → 1,100 XP, 550 Credits) - **Level 14+**
+11. 🏛️ **Breach Government** - Classified databases (5,000 Power → 2,000 XP, 1,000 Credits) - **Level 16+**
+12. 🎖️ **Hack Military Base** - Military networks (7,500 Power → 3,000 XP, 1,500 Credits) - **Level 18+**
+13. 🏗️ **Compromise Infrastructure** - Critical infrastructure (12,000 Power → 5,000 XP, 2,500 Credits) - **Level 21+**
+14. 🚀 **Hack Space Agency** - Satellite systems (20,000 Power → 8,500 XP, 4,250 Credits) - **Level 25+**
 
 ## Controls
 
