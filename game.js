@@ -143,7 +143,7 @@ const hardware = [
     { id: 'mb_lga1851', name: '🔌 LGA 1851 (Z890)', year: 2024, type: 'Motherboard', cost: 70000, power: 7000, description: 'Intel Z890 chipset', rarity: 'legendary' }
 ];
 
-// Mission Definitions
+// Mission Definitions (sorted by level requirement)
 const missions = [
     {
         id: 'hackWebsite',
@@ -153,56 +153,6 @@ const missions = [
         xpReward: 10,
         creditReward: 5,
         levelRequired: 1,
-        cooldown: 0
-    },
-    {
-        id: 'stealData',
-        name: '💾 Steal Database',
-        description: 'Extract sensitive data from a database',
-        powerCost: 200,
-        xpReward: 50,
-        creditReward: 25,
-        levelRequired: 3,
-        cooldown: 0
-    },
-    {
-        id: 'breakEncryption',
-        name: '🔐 Break Encryption',
-        description: 'Crack advanced encryption algorithms',
-        powerCost: 500,
-        xpReward: 150,
-        creditReward: 75,
-        levelRequired: 5,
-        cooldown: 0
-    },
-    {
-        id: 'infiltrateServer',
-        name: '🖥️ Infiltrate Server',
-        description: 'Gain root access to a secured server',
-        powerCost: 1000,
-        xpReward: 300,
-        creditReward: 150,
-        levelRequired: 8,
-        cooldown: 0
-    },
-    {
-        id: 'hackCorporation',
-        name: '🏢 Hack Corporation',
-        description: 'Penetrate corporate network defenses',
-        powerCost: 2500,
-        xpReward: 800,
-        creditReward: 400,
-        levelRequired: 12,
-        cooldown: 0
-    },
-    {
-        id: 'breachGovernment',
-        name: '🏛️ Breach Government System',
-        description: 'Access classified government databases',
-        powerCost: 5000,
-        xpReward: 2000,
-        creditReward: 1000,
-        levelRequired: 16,
         cooldown: 0
     },
     {
@@ -216,6 +166,16 @@ const missions = [
         cooldown: 0
     },
     {
+        id: 'stealData',
+        name: '💾 Steal Database',
+        description: 'Extract sensitive data from a database',
+        powerCost: 200,
+        xpReward: 50,
+        creditReward: 25,
+        levelRequired: 3,
+        cooldown: 0
+    },
+    {
         id: 'stealCredentials',
         name: '🔑 Steal Credentials',
         description: 'Phish admin credentials from targets',
@@ -223,6 +183,16 @@ const missions = [
         xpReward: 90,
         creditReward: 45,
         levelRequired: 4,
+        cooldown: 0
+    },
+    {
+        id: 'breakEncryption',
+        name: '🔐 Break Encryption',
+        description: 'Crack advanced encryption algorithms',
+        powerCost: 500,
+        xpReward: 150,
+        creditReward: 75,
+        levelRequired: 5,
         cooldown: 0
     },
     {
@@ -236,6 +206,16 @@ const missions = [
         cooldown: 0
     },
     {
+        id: 'infiltrateServer',
+        name: '🖥️ Infiltrate Server',
+        description: 'Gain root access to a secured server',
+        powerCost: 1000,
+        xpReward: 300,
+        creditReward: 150,
+        levelRequired: 8,
+        cooldown: 0
+    },
+    {
         id: 'exploitZeroDay',
         name: '🐛 Exploit Zero-Day',
         description: 'Leverage undiscovered vulnerability',
@@ -246,6 +226,16 @@ const missions = [
         cooldown: 0
     },
     {
+        id: 'hackCorporation',
+        name: '🏢 Hack Corporation',
+        description: 'Penetrate corporate network defenses',
+        powerCost: 2500,
+        xpReward: 800,
+        creditReward: 400,
+        levelRequired: 12,
+        cooldown: 0
+    },
+    {
         id: 'ransomwareAttack',
         name: '💀 Deploy Ransomware',
         description: 'Encrypt targets and demand payment',
@@ -253,6 +243,16 @@ const missions = [
         xpReward: 1100,
         creditReward: 550,
         levelRequired: 14,
+        cooldown: 0
+    },
+    {
+        id: 'breachGovernment',
+        name: '🏛️ Breach Government System',
+        description: 'Access classified government databases',
+        powerCost: 5000,
+        xpReward: 2000,
+        creditReward: 1000,
+        levelRequired: 16,
         cooldown: 0
     },
     {
