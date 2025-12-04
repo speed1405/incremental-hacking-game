@@ -143,7 +143,7 @@ const hardware = [
     { id: 'mb_lga1851', name: '🔌 LGA 1851 (Z890)', year: 2024, type: 'Motherboard', cost: 70000, power: 7000, description: 'Intel Z890 chipset', rarity: 'legendary' }
 ];
 
-// Mission Definitions
+// Mission Definitions (sorted by level requirement)
 const missions = [
     {
         id: 'hackWebsite',
@@ -153,6 +153,16 @@ const missions = [
         xpReward: 10,
         creditReward: 5,
         levelRequired: 1,
+        cooldown: 0
+    },
+    {
+        id: 'crackFirewall',
+        name: '🔥 Crack Firewall',
+        description: 'Bypass advanced firewall protection',
+        powerCost: 100,
+        xpReward: 25,
+        creditReward: 12,
+        levelRequired: 2,
         cooldown: 0
     },
     {
@@ -166,6 +176,16 @@ const missions = [
         cooldown: 0
     },
     {
+        id: 'stealCredentials',
+        name: '🔑 Steal Credentials',
+        description: 'Phish admin credentials from targets',
+        powerCost: 350,
+        xpReward: 90,
+        creditReward: 45,
+        levelRequired: 4,
+        cooldown: 0
+    },
+    {
         id: 'breakEncryption',
         name: '🔐 Break Encryption',
         description: 'Crack advanced encryption algorithms',
@@ -173,6 +193,16 @@ const missions = [
         xpReward: 150,
         creditReward: 75,
         levelRequired: 5,
+        cooldown: 0
+    },
+    {
+        id: 'ddosAttack',
+        name: '⚡ Launch DDoS Attack',
+        description: 'Overwhelm servers with distributed traffic',
+        powerCost: 750,
+        xpReward: 220,
+        creditReward: 110,
+        levelRequired: 6,
         cooldown: 0
     },
     {
@@ -186,6 +216,16 @@ const missions = [
         cooldown: 0
     },
     {
+        id: 'exploitZeroDay',
+        name: '🐛 Exploit Zero-Day',
+        description: 'Leverage undiscovered vulnerability',
+        powerCost: 1500,
+        xpReward: 450,
+        creditReward: 225,
+        levelRequired: 9,
+        cooldown: 0
+    },
+    {
         id: 'hackCorporation',
         name: '🏢 Hack Corporation',
         description: 'Penetrate corporate network defenses',
@@ -196,6 +236,16 @@ const missions = [
         cooldown: 0
     },
     {
+        id: 'ransomwareAttack',
+        name: '💀 Deploy Ransomware',
+        description: 'Encrypt targets and demand payment',
+        powerCost: 3500,
+        xpReward: 1100,
+        creditReward: 550,
+        levelRequired: 14,
+        cooldown: 0
+    },
+    {
         id: 'breachGovernment',
         name: '🏛️ Breach Government System',
         description: 'Access classified government databases',
@@ -203,6 +253,36 @@ const missions = [
         xpReward: 2000,
         creditReward: 1000,
         levelRequired: 16,
+        cooldown: 0
+    },
+    {
+        id: 'hackMilitaryBase',
+        name: '🎖️ Hack Military Base',
+        description: 'Infiltrate classified military networks',
+        powerCost: 7500,
+        xpReward: 3000,
+        creditReward: 1500,
+        levelRequired: 18,
+        cooldown: 0
+    },
+    {
+        id: 'compromiseInfrastructure',
+        name: '🏗️ Compromise Infrastructure',
+        description: 'Target critical national infrastructure',
+        powerCost: 12000,
+        xpReward: 5000,
+        creditReward: 2500,
+        levelRequired: 21,
+        cooldown: 0
+    },
+    {
+        id: 'hackSpaceAgency',
+        name: '🚀 Hack Space Agency',
+        description: 'Access satellite control systems',
+        powerCost: 20000,
+        xpReward: 8500,
+        creditReward: 4250,
+        levelRequired: 25,
         cooldown: 0
     }
 ];
